@@ -12,7 +12,13 @@ const config = require("./config");
 const { notFound, errorHandler } = require("./middleware/error");
 
 // Middleware to enable CORS (Cross-Origin Resource Sharing)
-app.use(cors());
+app.use(cors({
+  origin: [
+    "https://mentor-hub-project-six.vercel.app",
+    /\.vercel\.app$/
+  ],
+  credentials: true
+}));
 
 // Middleware to parse incoming JSON requests
 app.use(express.json());
