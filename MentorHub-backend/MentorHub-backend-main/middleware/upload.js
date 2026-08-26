@@ -1,18 +1,14 @@
 const multer = require("multer");
 const path = require("path");
+const os = require("os");
 
-const fs = require("fs");
-const uploadDir = "uploads/";
+// Use OS temp directory — Vercel's filesystem is read-only except /tmp
+const uploadDir = os.tmpdir();
 
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
 // Configure storage
 const storage = multer.diskStorage({
-  // Ensure uploads directory exists
-
   destination: function (req, file, cb) {
-    cb(null, uploadDir); // Make sure this directory exists
+    cb(null, uploadDir);
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + "-" + file.originalname);
@@ -26,7 +22,6 @@ const fileFilter = (req, file, cb) => {
     path.extname(file.originalname).toLowerCase()
   );
   const mimetype = allowedFileTypes.test(file.mimetype);
-
   if (extname && mimetype) {
     return cb(null, true);
   } else {
