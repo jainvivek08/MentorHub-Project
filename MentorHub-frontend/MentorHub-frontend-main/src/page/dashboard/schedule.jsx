@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Calendar, Modal, Button, Checkbox, message } from "antd";
 import moment from "moment";
 import Dashboard from "./dashboard";
-import availabilityApi from "../../apiManager/availability";
+import availabilityApi from "../../apiManger/availability";
 
 const SLOT_OPTIONS = [
   { label: "09:00 AM - 09:59 AM", startTime: "09:00", endTime: "09:59" },
