@@ -4,10 +4,11 @@ const httpStatus = require("../util/httpStatus");
 const moment = require("moment");
 const BookingModel = require("../models/booking.model");
 const createAvailability = async (userId, availabilityData) => {
-  return await AvailabilityModel.create({
-    userId,
-    ...availabilityData,
-  });
+  return await AvailabilityModel.findOneAndUpdate(
+    { userId },
+    { userId, ...availabilityData },
+    { new: true, upsert: true, runValidators: true }
+  );
 };
 
 const updateAvailability = async (userId, availabilityData) => {
