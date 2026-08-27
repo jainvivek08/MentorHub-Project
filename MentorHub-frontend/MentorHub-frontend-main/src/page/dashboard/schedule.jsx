@@ -1,104 +1,151 @@
 import React, { useState, useEffect } from "react";
-import { Calendar, Modal, Button, Checkbox } from "antd"; // Add your preferred modal and calendar
+import { Calendar, Modal, Button, Checkbox, message } from "antd";
 import moment from "moment";
 import Dashboard from "./dashboard";
+import availabilityApi from "../../apiManager/availability";
+
+const SLOT_OPTIONS = [
+  { label: "09:00 AM - 09:59 AM", startTime: "09:00", endTime: "09:59" },
+  { label: "10:00 AM - 10:59 AM", startTime: "10:00", endTime: "10:59" },
+  { label: "11:00 AM - 11:59 AM", startTime: "11:00", endTime: "11:59" },
+  { label: "12:00 PM - 12:59 PM", startTime: "12:00", endTime: "12:59" },
+  { label: "01:00 PM - 01:59 PM", startTime: "13:00", endTime: "13:59" },
+  { label: "02:00 PM - 02:59 PM", startTime: "14:00", endTime: "14:59" },
+  { label: "03:00 PM - 03:59 PM", startTime: "15:00", endTime: "15:59" },
+];
 
 const Schedule = () => {
-  const [selectedDates, setSelectedDates] = useState([]);
+  const [weeklyAvailability, setWeeklyAvailability] = useState({
+    sunday: [],
+    monday: [],
+    tuesday: [],
+    wednesday: [],
+    thursday: [],
+    friday: [],
+    saturday: [],
+  });
   const [unavailableDates, setUnavailableDates] = useState([]);
-  const [availableSlots, setAvailableSlots] = useState([]); // Dynamically managed
-  const [bookedSlots, setBookedSlots] = useState([]); // Initially empty
+  const [selectedDate, setSelectedDate] = useState(null);
   const [selectedSlots, setSelectedSlots] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Initialize available slots with a specific range (9 AM to 3 PM)
-    const slots = [];
-    for (let hour = 9; hour <= 15; hour++) {
-      const startTime = moment().set({ hour, minute: 0 });
-      const endTime = moment().set({ hour, minute: 59 });
-      slots.push(
-        `${startTime.format("hh:mm A")} - ${endTime.format("hh:mm A")}`
-      );
-    }
-    setAvailableSlots(slots);
+    const fetchAvailability = async () => {
+      try {
+        const res = await availabilityApi.getMyAvailability();
+        const data = res.data.availability;
+        if (data) {
+          setWeeklyAvailability(data.weeklyAvailability || {});
+          setUnavailableDates(
+            (data.unavailableDates || []).map((d) =>
+              moment(d).format("YYYY-MM-DD")
+            )
+          );
+        }
+      } catch (err) {
+        console.log("No existing availability found");
+      }
+    };
+    fetchAvailability();
   }, []);
 
   const handleSelectDate = (date) => {
-    const selectedDate = moment(date).format("YYYY-MM-DD");
+    const formattedDate = moment(date).format("YYYY-MM-DD");
 
-    // Prevent selecting past dates
-    if (moment(selectedDate).isBefore(moment().format("YYYY-MM-DD"))) {
-      return; // Don't allow selection of past dates
+    if (moment(formattedDate).isBefore(moment().format("YYYY-MM-DD"))) {
+      return;
     }
 
-    // Toggle the selected date
-    if (selectedDates.includes(selectedDate)) {
-      setSelectedDates(selectedDates.filter((d) => d !== selectedDate));
-    } else {
-      setSelectedDates([...selectedDates, selectedDate]);
-    }
+    setSelectedDate(formattedDate);
 
-    // Open modal for selecting time slots
+    const dayOfWeek = moment(formattedDate).format("dddd").toLowerCase();
+    const existingSlots = weeklyAvailability[dayOfWeek] || [];
+    const preselected = SLOT_OPTIONS.filter((opt) =>
+      existingSlots.some(
+        (slot) =>
+          slot.startTime === opt.startTime && slot.endTime === opt.endTime
+      )
+    ).map((opt) => opt.label);
+
+    setSelectedSlots(preselected);
     setShowModal(true);
-  };
-
-  const handleMarkUnavailable = () => {
-    // Mark only the selected dates as unavailable
-    setUnavailableDates((prev) => [...new Set([...prev, ...selectedDates])]);
-    setShowModal(false);
-    setSelectedDates([]);
   };
 
   const handleSlotSelection = (value) => {
     setSelectedSlots(value);
   };
 
-  const handleScheduleSave = () => {
-    // Save the scheduled time slots logic
-    const newBookings = selectedDates.flatMap((date) =>
-      selectedSlots.map((slot) => ({ date, slot }))
+  const saveToBackend = async (updatedWeekly, updatedUnavailable) => {
+    setLoading(true);
+    try {
+      await availabilityApi.saveAvailability({
+        weeklyAvailability: updatedWeekly,
+        unavailableDates: updatedUnavailable,
+      });
+      message.success("Availability saved successfully!");
+    } catch (err) {
+      message.error("Failed to save availability. Please try again.");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleScheduleSave = async () => {
+    if (!selectedDate) return;
+
+    const dayOfWeek = moment(selectedDate).format("dddd").toLowerCase();
+    const newSlots = SLOT_OPTIONS.filter((opt) =>
+      selectedSlots.includes(opt.label)
+    ).map((opt) => ({ startTime: opt.startTime, endTime: opt.endTime }));
+
+    const updatedWeekly = {
+      ...weeklyAvailability,
+      [dayOfWeek]: newSlots,
+    };
+
+    const updatedUnavailable = unavailableDates.filter(
+      (d) => d !== selectedDate
     );
 
-    // Filter out existing booked slots to avoid duplicates
-    const uniqueBookings = newBookings.filter(
-      (newBooking) =>
-        !bookedSlots.some(
-          (existing) =>
-            existing.date === newBooking.date &&
-            existing.slot === newBooking.slot
-        )
-    );
-
-    // Update booked slots with new unique bookings
-    setBookedSlots((prev) => [...prev, ...uniqueBookings]);
-
-    // Reset selections
+    setWeeklyAvailability(updatedWeekly);
+    setUnavailableDates(updatedUnavailable);
     setShowModal(false);
     setSelectedSlots([]);
-    setSelectedDates([]);
+    setSelectedDate(null);
+
+    await saveToBackend(updatedWeekly, updatedUnavailable);
+  };
+
+  const handleMarkUnavailable = async () => {
+    if (!selectedDate) return;
+
+    const updatedUnavailable = [...new Set([...unavailableDates, selectedDate])];
+    setUnavailableDates(updatedUnavailable);
+    setShowModal(false);
+    setSelectedSlots([]);
+    setSelectedDate(null);
+
+    await saveToBackend(weeklyAvailability, updatedUnavailable);
   };
 
   const dateCellRender = (value) => {
     const currentDate = moment(value).format("YYYY-MM-DD");
 
-    // Highlight unavailable dates
     if (unavailableDates.includes(currentDate)) {
-      return <div className="bg-red-500 text-white p-2">Unavailable</div>;
+      return <div className="bg-red-500 text-white p-2 rounded">Unavailable</div>;
     }
 
-    // Check if the current date has any booked slots
-    const bookedOnThisDay = bookedSlots.filter(
-      (slot) => slot.date === currentDate
-    );
+    const dayOfWeek = moment(currentDate).format("dddd").toLowerCase();
+    const slotsForDay = weeklyAvailability[dayOfWeek] || [];
 
-    // Show booked slots on this day
-    if (bookedOnThisDay.length) {
+    if (slotsForDay.length) {
       return (
         <div>
-          {bookedOnThisDay.map((slot, index) => (
-            <div key={index} className="bg-green-200 p-1 rounded">
-              {slot.slot}
+          {slotsForDay.map((slot, index) => (
+            <div key={index} className="bg-green-200 p-1 rounded mb-1">
+              {slot.startTime} - {slot.endTime}
             </div>
           ))}
         </div>
@@ -112,6 +159,11 @@ const Schedule = () => {
     <Dashboard>
       <div className="p-4">
         <h2 className="text-2xl font-bold mb-4">Schedule Time Slots</h2>
+        <p className="text-gray-500 mb-4">
+          Note: Setting slots for a date applies to every{" "}
+          {selectedDate ? moment(selectedDate).format("dddd") : "that weekday"}{" "}
+          (recurring weekly).
+        </p>
 
         <Calendar
           fullscreen={false}
@@ -120,62 +172,39 @@ const Schedule = () => {
         />
 
         <Modal
-          title="Select Available Time Slots"
-          visible={showModal}
+          title={`Select Available Time Slots${
+            selectedDate ? ` (${moment(selectedDate).format("dddd")})` : ""
+          }`}
+          open={showModal}
           onCancel={() => setShowModal(false)}
           footer={[
             <Button key="cancel" onClick={() => setShowModal(false)}>
               Cancel
             </Button>,
-            <Button key="save" type="primary" onClick={handleScheduleSave}>
+            <Button
+              key="save"
+              type="primary"
+              loading={loading}
+              onClick={handleScheduleSave}
+            >
               Save Slots
             </Button>,
-            <Button key="unavailable" danger onClick={handleMarkUnavailable}>
+            <Button
+              key="unavailable"
+              danger
+              loading={loading}
+              onClick={handleMarkUnavailable}
+            >
               Mark Unavailable
             </Button>,
           ]}
         >
           <Checkbox.Group
-            options={availableSlots}
+            options={SLOT_OPTIONS.map((opt) => opt.label)}
             onChange={handleSlotSelection}
             value={selectedSlots}
           />
         </Modal>
-
-        <div className="mt-6">
-          <h3 className="text-xl font-semibold">Next 7 Days Information</h3>
-          <ul>
-            {Array.from({ length: 7 }, (_, index) => {
-              const date = moment().add(index, "days").format("YYYY-MM-DD");
-              const bookedOnDate = bookedSlots.filter(
-                (slot) => slot.date === date
-              );
-              return (
-                <li key={date} className="flex justify-between p-2">
-                  <span>{date}</span>
-                  <span>
-                    {bookedOnDate.length > 0
-                      ? `${bookedOnDate.length} booked slots`
-                      : "No bookings"}
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
-
-          <h3 className="mt-4 text-xl font-semibold">Unavailable Dates</h3>
-          <ul>
-            {unavailableDates.length > 0 ? (
-              unavailableDates.map((date) => (
-                <li key={date} className="p-2">
-                  {date}
-                </li>
-              ))
-            ) : (
-              <li className="p-2">No unavailable dates marked</li>
-            )}
-          </ul>
-        </div>
       </div>
     </Dashboard>
   );
