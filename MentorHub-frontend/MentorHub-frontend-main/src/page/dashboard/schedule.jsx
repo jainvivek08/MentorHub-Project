@@ -79,8 +79,16 @@ const Schedule = () => {
   const saveToBackend = async (updatedWeekly, updatedUnavailable) => {
     setLoading(true);
     try {
+      // 🔧 Fix: har din ke slots se _id (aur koi extra field) hatao
+      const cleanedWeekly = Object.fromEntries(
+        Object.entries(updatedWeekly).map(([day, slots]) => [
+          day,
+          slots.map(({ startTime, endTime }) => ({ startTime, endTime })),
+        ])
+      );
+
       await availabilityApi.saveAvailability({
-        weeklyAvailability: updatedWeekly,
+        weeklyAvailability: cleanedWeekly,
         unavailableDates: updatedUnavailable,
       });
       message.success("Availability saved successfully!");
@@ -91,7 +99,6 @@ const Schedule = () => {
       setLoading(false);
     }
   };
-
   const handleScheduleSave = async () => {
     if (!selectedDate) return;
 
