@@ -10,10 +10,12 @@ import moment from "moment";
 import booking from "../apiManger/booking";
 import handlePayment from "../components/Checkout";
 import Layout from "../components/Layout";
+import useUserStore from "../store/user";
 
 const Booking = () => {
   const navigate = useNavigate();
   const { username, id } = useParams();
+  const { user } = useUserStore();
   const [serviceData, setServiceData] = useState(null);
   const [mentorAvailability, setMentorAvailability] = useState(null);
   const [activeIndex, setActiveIndex] = useState(null);
@@ -48,9 +50,13 @@ const Booking = () => {
       serviceId: id,
       dateAndTime: selectedSlot,
     });
-    handlePayment(res.data.order.id, (response) => {
-      navigate("/success");
-    });
+    handlePayment(
+      res.data.order.id,
+      (response) => {
+        navigate("/success");
+      },
+      { name: user?.name, email: user?.email }
+    );
   };
 
   return (
