@@ -6,4 +6,12 @@ const getMentorAvailability = async (mentorId, duration) => {
   );
 };
 
-export default { getMentorAvailability };
+const getMyAvailability = async () => {
+  return await AxiosInstances.get(`availability`);
+};
+
+const saveAvailability = async (data) => {
+  return await AxiosInstances.post(`availability`, data);
+};
+
+export default { getMentorAvailability, getMyAvailability, saveAvailability };
