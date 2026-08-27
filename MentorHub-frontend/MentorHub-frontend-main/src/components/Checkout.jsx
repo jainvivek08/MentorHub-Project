@@ -14,12 +14,17 @@ const loadScript = (src) => {
   });
 };
 
-const handlePayment = async (orderId, handler) => {
+const handlePayment = async (orderId, handler, prefill = {}) => {
   await loadScript("https://checkout.razorpay.com/v1/checkout.js");
 
   const paymentObject = new window.Razorpay({
     key: RAZORPAY_KEY_ID,
     order_id: orderId,
+    prefill: {
+      name: prefill.name || "",
+      email: prefill.email || "",
+      contact: prefill.contact || "9999999999",
+    },
     handler: function (response) {
       console.log(response);
       handler?.(response);
