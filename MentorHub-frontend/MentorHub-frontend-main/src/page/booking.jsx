@@ -50,10 +50,10 @@ const Booking = () => {
       serviceId: id,
       dateAndTime: selectedSlot,
     });
-    handlePayment(
+      handlePayment(
       res.data.order.id,
       (response) => {
-        navigate("/success");
+        navigate("/success", { state: { bookingId: res.data.booking._id } });
       },
       { name: user?.name, email: user?.email }
     );
