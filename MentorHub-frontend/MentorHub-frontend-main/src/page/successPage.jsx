@@ -34,7 +34,6 @@ const SuccessPage = () => {
       }
 
       attemptsRef.current += 1;
-      // Stop polling after ~30 seconds (15 attempts * 2s)
       if (attemptsRef.current < 15) {
         setTimeout(pollForMeetingLink, 2000);
       } else {
