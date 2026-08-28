@@ -54,14 +54,12 @@ const SuccessPage = () => {
           {meetingLink ? (
             <div className="p-4 mt-6 bg-green-50 border border-green-200 rounded">
               <p className="mb-3 text-gray-700">Your meeting is ready:</p>
-              
-                href={meetingLink}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => window.open(meetingLink, "_blank")}
                 className="inline-block px-6 py-2 text-white bg-green-500 rounded hover:bg-green-400"
               >
                 Join Meeting
-              </a>
+              </button>
             </div>
           ) : checking ? (
             <div className="mt-6">
