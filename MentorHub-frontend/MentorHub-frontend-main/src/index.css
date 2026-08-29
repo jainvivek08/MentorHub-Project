@@ -18,4 +18,13 @@
   html.dark h6 {
     @apply text-white;
   }
+
+  /* AntD's default disabled-button styling is too low-contrast on dark
+     backgrounds; give it a visible, readable treatment site-wide. */
+  html.dark .ant-btn[disabled],
+  html.dark .ant-btn-primary[disabled] {
+    background-color: #374151 !important;
+    border-color: #4b5563 !important;
+    color: #9ca3af !important;
+  }
 }
