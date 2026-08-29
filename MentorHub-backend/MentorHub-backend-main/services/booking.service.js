@@ -17,7 +17,10 @@ const updateBookingById = async (bookingId, bookingData) => {
 };
 
 const getUsersBooking = async (userId) => {
-  return await BookingModel.find({ user: userId });
+  return await BookingModel.find({ user: userId })
+    .populate("service", "name duration")
+    .populate("mentor", "name username")
+    .sort({ dateAndTime: -1 });
 };
 
 const getMentorBookings = async (mentorId) => {
