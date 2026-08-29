@@ -12,6 +12,7 @@ import {
 import Dashboard from "./dashboard";
 import useUserStore from "../../store/user";
 import userAPI from "../../apiManger/user";
+import compressImage from "../../helper/compressImage";
 
 const Profile = () => {
   const { setUser, user: mentorData } = useUserStore();
@@ -24,14 +25,20 @@ const Profile = () => {
     const file = e.target.files[0];
     if (file) {
       setLoading(true);
-      const formData = new FormData();
-      formData.append("photo", file);
-
       try {
+        // Resize/compress in the browser so large photos don't hit
+        // the backend's request size limit.
+        const compressedFile = await compressImage(file);
+
+        const formData = new FormData();
+        formData.append("photo", compressedFile);
+
         const response = await userAPI.uploadImage(formData);
         setUser({ ...mentorData, photoUrl: response.data.photoUrl });
+        message.success("Profile photo updated!");
       } catch (error) {
         console.error("Image upload failed", error);
+        message.error("Failed to upload photo. Please try a different image.");
       } finally {
         setLoading(false);
       }
