@@ -140,3 +140,62 @@ const BookingPage = () => {
   });
 
   return (
+    <Layout>
+      <div className="container p-4 mx-auto max-w-6xl">
+        <h2 className="mb-1 text-2xl font-bold text-gray-800">My Sessions</h2>
+        <p className="mb-6 text-gray-500">
+          All your booked mentorship sessions in one place.
+        </p>
+
+        <div className="flex gap-2 mb-6">
+          <button
+            onClick={() => setActiveTab("upcoming")}
+            className={
+              "px-4 py-2 rounded-md text-sm font-medium transition-colors " +
+              (activeTab === "upcoming"
+                ? "bg-blue-600 text-white"
+                : "bg-gray-100 text-gray-600 hover:bg-gray-200")
+            }
+          >
+            Upcoming
+          </button>
+          <button
+            onClick={() => setActiveTab("past")}
+            className={
+              "px-4 py-2 rounded-md text-sm font-medium transition-colors " +
+              (activeTab === "past"
+                ? "bg-blue-600 text-white"
+                : "bg-gray-100 text-gray-600 hover:bg-gray-200")
+            }
+          >
+            Past
+          </button>
+        </div>
+
+        {loading ? (
+          <div className="flex justify-center py-16">
+            <Spin size="large" />
+          </div>
+        ) : filteredBookings.length === 0 ? (
+          <div className="py-16">
+            <Empty
+              description={
+                activeTab === "upcoming"
+                  ? "No upcoming sessions"
+                  : "No past sessions"
+              }
+            />
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {filteredBookings.map((record) => (
+              <SessionCard key={record._id} record={record} />
+            ))}
+          </div>
+        )}
+      </div>
+    </Layout>
+  );
+};
+
+export default BookingPage;
