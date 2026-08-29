@@ -14,7 +14,7 @@ const MentorCard = ({ mentor }) => {
   return (
     <div
       onClick={onCardClick} // Trigger navigation on click
-      className="transition bg-white border rounded-lg shadow-md cursor-pointer hover:shadow-lg"
+      className="transition-all duration-300 bg-white border rounded-lg shadow-md cursor-pointer hover:shadow-xl hover:-translate-y-1"
     >
       <div className="relative group">
         <img
