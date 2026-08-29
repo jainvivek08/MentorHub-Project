@@ -1,34 +1,23 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import useUserStore from "../store/user";
+
+const navItemClass = ({ isActive }) =>
+  `flex items-center px-4 py-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700 ${
+    isActive ? "bg-gray-100 text-gray-700" : "text-gray-600"
+  }`;
 
 const Sidebar = () => {
-  const { user } = useUserStore();
-
   return (
     <aside className="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-white border-r">
-      <div className="flex flex-col items-center mt-6 -mx-2">
-        <img
-          className="object-cover w-24 h-24 mx-2 rounded"
-          src={user.photoUrl || `https://ui-avatars.com/api?name=${user?.name}`}
-          alt={`${user?.name}'s avatar`}
-        />
-        <h4 className="mx-2 mt-2 font-medium text-gray-800">{user?.name}</h4>
-        <p className="mx-2 mt-1 text-sm font-medium text-gray-600">
-          {user?.email}
-        </p>
+      <div className="px-2 mb-4">
+        <h1 className="text-2xl font-bold tracking-wide text-gray-800">
+          MentorHub
+        </h1>
       </div>
 
-      <div className="flex flex-col justify-between flex-1 mt-6">
-        <nav>
-          <NavLink
-            to="/dashboard/profile"
-            className={({ isActive }) =>
-              `flex items-center px-4 py-2 ${
-                isActive ? "bg-gray-100 text-gray-700" : "text-gray-600"
-              } transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700`
-            }
-          >
+      <div className="flex flex-col justify-between flex-1 mt-4">
+        <nav className="space-y-2">
+          <NavLink to="/dashboard/overview" className={navItemClass}>
             <svg
               className="w-5 h-5"
               viewBox="0 0 24 24"
@@ -36,32 +25,38 @@ const Sidebar = () => {
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z"
+                d="M3 13H10V3H3V13Z"
                 stroke="currentColor"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
               <path
-                d="M4 20C4 16.6863 6.68629 14 10 14H14C17.3137 14 20 16.6863 20 20"
+                d="M14 21H21V11H14V21Z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M14 3V7H21V3H14Z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M3 21H10V17H3V21Z"
                 stroke="currentColor"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
             </svg>
-
-            <span className="mx-4 font-medium">Profile</span>
+            <span className="mx-4 font-medium">Overview</span>
           </NavLink>
 
-          <NavLink
-            to="/dashboard/services"
-            className={({ isActive }) =>
-              `flex items-center px-4 py-2 mt-5 ${
-                isActive ? "bg-gray-100 text-gray-700" : "text-gray-600"
-              } transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700`
-            }
-          >
+          <NavLink to="/dashboard/services" className={navItemClass}>
             <svg
               className="w-5 h-5"
               viewBox="0 0 24 24"
@@ -89,27 +84,11 @@ const Sidebar = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
-              <path
-                d="M9.5 13.5C9.5 12.9477 9.94772 12.5 10.5 12.5C11.0523 12.5 11.5 12.9477 11.5 13.5C11.5 14.0523 11.0523 14.5 10.5 14.5C9.94772 14.5 9.5 14.0523 9.5 13.5Z"
-                fill="currentColor"
-              />
-              <path
-                d="M13.5 13.5C13.5 12.9477 13.9477 12.5 14.5 12.5C15.0523 12.5 15.5 12.9477 15.5 13.5C15.5 14.0523 15.0523 14.5 14.5 14.5C13.9477 14.5 13.5 14.0523 13.5 13.5Z"
-                fill="currentColor"
-              />
             </svg>
-
             <span className="mx-4 font-medium">Services</span>
           </NavLink>
 
-          <NavLink
-            to="/dashboard/schedule"
-            className={({ isActive }) =>
-              `flex items-center px-4 py-2 mt-5 ${
-                isActive ? "bg-gray-100 text-gray-700" : "text-gray-600"
-              } transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700`
-            }
-          >
+          <NavLink to="/dashboard/schedule" className={navItemClass}>
             <svg
               className="w-5 h-5"
               viewBox="0 0 24 24"
@@ -123,40 +102,11 @@ const Sidebar = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
-              <path
-                d="M16 13H16.01"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M12 13H12.01"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M8 13H8.01"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
             </svg>
-
             <span className="mx-4 font-medium">Schedule</span>
           </NavLink>
 
-          <NavLink
-            to="/dashboard/payment"
-            className={({ isActive }) =>
-              `flex items-center px-4 py-2 mt-5 ${
-                isActive ? "bg-gray-100 text-gray-700" : "text-gray-600"
-              } transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700`
-            }
-          >
+          <NavLink to="/dashboard/payment" className={navItemClass}>
             <svg
               className="w-5 h-5"
               viewBox="0 0 24 24"
@@ -177,26 +127,11 @@ const Sidebar = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
-              <path
-                d="M7 14H7.01"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
             </svg>
-
             <span className="mx-4 font-medium">Payment</span>
           </NavLink>
 
-          <NavLink
-            to="/dashboard/bookings"
-            className={({ isActive }) =>
-              `flex items-center px-4 py-2 mt-5 ${
-                isActive ? "bg-gray-100 text-gray-700" : "text-gray-600"
-              } transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700`
-            }
-          >
+          <NavLink to="/dashboard/bookings" className={navItemClass}>
             <svg
               className="w-5 h-5"
               viewBox="0 0 24 24"
@@ -217,15 +152,7 @@ const Sidebar = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
-              <path
-                d="M7 14H7.01"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
             </svg>
-
             <span className="mx-4 font-medium">Bookings</span>
           </NavLink>
         </nav>
