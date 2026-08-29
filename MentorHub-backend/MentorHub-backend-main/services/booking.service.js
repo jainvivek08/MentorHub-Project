@@ -21,7 +21,10 @@ const getUsersBooking = async (userId) => {
 };
 
 const getMentorBookings = async (mentorId) => {
-  return await BookingModel.find({ mentor: mentorId });
+  return await BookingModel.find({ mentor: mentorId })
+    .populate("user", "name email")
+    .populate("service", "name duration")
+    .sort({ dateAndTime: -1 });
 };
 
 module.exports = {
