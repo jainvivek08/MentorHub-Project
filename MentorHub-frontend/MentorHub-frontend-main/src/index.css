@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html.dark body {
+    @apply bg-gray-950 text-gray-200;
+  }
+  /* Safety net: any heading/paragraph/span that didn't get an explicit
+     dark: text color still stays readable against dark backgrounds. */
+  html.dark h1,
+  html.dark h2,
+  html.dark h3,
+  html.dark h4,
+  html.dark h5,
+  html.dark h6 {
+    @apply text-white;
+  }
+  html.dark p,
+  html.dark span,
+  html.dark li,
+  html.dark label {
+    @apply text-gray-300;
+  }
+}
