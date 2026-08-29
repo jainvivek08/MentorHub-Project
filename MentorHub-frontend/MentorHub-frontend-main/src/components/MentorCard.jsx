@@ -14,7 +14,7 @@ const MentorCard = ({ mentor }) => {
   return (
     <div
       onClick={onCardClick} // Trigger navigation on click
-      className="transition-all duration-300 bg-white border rounded-lg shadow-md cursor-pointer hover:shadow-xl hover:-translate-y-1"
+      className="transition-all duration-300 bg-white border rounded-lg shadow-md cursor-pointer dark:bg-gray-800 dark:border-gray-700 hover:shadow-xl hover:-translate-y-1"
     >
       <div className="relative group">
         <img
@@ -34,10 +34,12 @@ const MentorCard = ({ mentor }) => {
       </div>
       <div className="p-4 ">
         <div className="m4 ">
-          <h3 className="py-2 text-xl font-bold">{mentor?.name || "Name"}</h3>
+          <h3 className="py-2 text-xl font-bold dark:text-white">
+            {mentor?.name || "Name"}
+          </h3>
           <div className="flex gap-x-2">
-            <FaUniversity />
-            <p className="text-sm text-gray-500">
+            <FaUniversity className="dark:text-gray-400" />
+            <p className="text-sm text-gray-500 dark:text-gray-400">
               {mentor?.profile?.college || "College"}
             </p>
           </div>
@@ -47,7 +49,7 @@ const MentorCard = ({ mentor }) => {
             return (
               <span
                 key={index}
-                className="px-2 py-1 text-xs font-semibold text-gray-700 bg-gray-100 rounded-full"
+                className="px-2 py-1 text-xs font-semibold text-gray-700 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-200"
               >
                 {tag || "Tag"}
               </span>
