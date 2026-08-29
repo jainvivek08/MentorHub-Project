@@ -10,12 +10,12 @@ const TopMentors = () => {
   const [topMentors, setTopMentors] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Function to get 4 random mentors from the array
+  // Function to get 3 random mentors from the array
   const selectTopMentors = (mentors) => {
     const selected = [];
     const totalMentors = mentors.length;
 
-    while (selected.length < 4 && selected.length < totalMentors) {
+    while (selected.length < 3 && selected.length < totalMentors) {
       const randomIndex = Math.floor(Math.random() * totalMentors); // Get random index
       const randomMentor = mentors[randomIndex];
 
@@ -35,7 +35,7 @@ const TopMentors = () => {
       const allMentors = response?.data?.mentors || [];
       setMentorsData(allMentors); // Store all mentors
 
-      setTopMentors(selectTopMentors(allMentors)); // Set 4 random mentors directly from the API response
+      setTopMentors(selectTopMentors(allMentors)); // Set 3 random mentors directly from the API response
     } catch (error) {
       console.error("Error fetching mentors:", error);
     } finally {
@@ -55,7 +55,7 @@ const TopMentors = () => {
           <Spin size="large" />
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
+        <div className="grid max-w-5xl grid-cols-1 gap-6 mx-auto sm:grid-cols-2 md:grid-cols-3 place-items-center">
           {topMentors.map((mentor) => {
             return <MentorCard mentor={mentor} key={mentor?._id} />;
           })}
