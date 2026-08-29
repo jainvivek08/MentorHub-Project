@@ -19,17 +19,18 @@ const handleRazorpayWebhook = async (req, res, next) => {
     );
 
     await bookingService.updateBookingById(bookingId, {
-      meetingLink: zoomMeeting,
-      status: "confirmed",
-    });
+  meetingLink: zoomMeeting.joinUrl,
+  startUrl: zoomMeeting.startUrl,
+  status: "confirmed",
+});
 
-    await emailService.sendConfirmationMail(
-      booking.user.email,
-      booking.user.name,
-      zoomMeeting,
-      moment(booking.dateAndTime).format("DD-MM-YYYY"),
-      moment(booking.dateAndTime).format("HH:mm")
-    );
+await emailService.sendConfirmationMail(
+  booking.user.email,
+  booking.user.name,
+  zoomMeeting.joinUrl,
+  moment(booking.dateAndTime).format("DD-MM-YYYY"),
+  moment(booking.dateAndTime).format("HH:mm")
+);
   }
   return res.status(httpStatus.ok).json({
     message: "Webhook received",
