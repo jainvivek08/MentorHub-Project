@@ -14,7 +14,7 @@ const MentorCard = ({ mentor }) => {
   return (
     <div
       onClick={onCardClick} // Trigger navigation on click
-      className="transition-all duration-300 bg-white border rounded-lg shadow-md cursor-pointer dark:bg-gray-800 dark:border-gray-700 hover:shadow-xl hover:-translate-y-1"
+      className="w-full overflow-hidden transition-all duration-300 bg-white border rounded-lg shadow-md cursor-pointer dark:bg-gray-800 dark:border-gray-700 hover:shadow-xl hover:-translate-y-1"
     >
       <div className="relative group">
         <img
@@ -44,7 +44,7 @@ const MentorCard = ({ mentor }) => {
             </p>
           </div>
         </div>
-        <div className="flex mt-2 space-x-2">
+        <div className="flex flex-wrap gap-2 mt-2">
           {mentor?.profile?.tags.map((tag, index) => {
             return (
               <span
