@@ -59,26 +59,26 @@ const MentorDetails = () => {
                   alt={`${mentor?.name}'s avatar`}
                   className="w-48 h-48 mx-auto border rounded-full"
                 />
-                <h2 className="mt-4 text-3xl font-bold text-center">
+                <h2 className="mt-4 text-3xl font-bold text-center dark:text-white">
                   {mentor?.name}
                 </h2>
-                <p className="mt-2 text-center text-gray-600">
+                <p className="mt-2 text-center text-gray-600 dark:text-gray-400">
                   {mentor?.profile?.title}
                 </p>
                 <div className="flex justify-center mt-4">
                   {mentor?.profile?.tags.map((tag, index) => (
                     <span
                       key={index}
-                      className="px-2 py-1 mx-1 text-xs bg-gray-100 rounded-full"
+                      className="px-2 py-1 mx-1 text-xs text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-200"
                     >
                       {tag || "Tags"}
                     </span>
                   ))}
                 </div>
-                <p className="mt-4 text-center text-gray-500">
+                <p className="mt-4 text-center text-gray-500 dark:text-gray-400">
                   {mentor?.profile?.bio || "Mentor bio"}
                 </p>
-                <h3 className="mt-8 text-lg font-semibold text-center">
+                <h3 className="mt-8 text-lg font-semibold text-center dark:text-white">
                   Connect with me
                 </h3>
                 <div className="flex justify-center mt-4 space-x-4">
@@ -96,7 +96,7 @@ const MentorDetails = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <AiFillGithub className="text-3xl text-gray-800" />
+                    <AiFillGithub className="text-3xl text-gray-800 dark:text-gray-200" />
                   </a>
                   <a
                     href={mentor?.profile?.social?.twitter || "www.twitter.com"}
@@ -131,8 +131,10 @@ const MentorDetails = () => {
           </div>
 
           {/* Mentor's Services */}
-          <div className="col-span-2 p-6 h-screen bg-[#F5F5F5]">
-            <h3 className="mb-4 text-2xl font-bold">Book a Session</h3>
+          <div className="col-span-2 p-6 h-screen bg-[#F5F5F5] dark:bg-gray-900">
+            <h3 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
+              Book a Session
+            </h3>
 
             {servicesLoading ? (
               <div className="flex items-center justify-center h-full">
@@ -149,12 +151,12 @@ const MentorDetails = () => {
                 ))}
               </div>
             ) : (
-              <div className="flex flex-col items-center justify-center h-full text-gray-700">
+              <div className="flex flex-col items-center justify-center h-full text-gray-700 dark:text-gray-300">
                 <BiErrorAlt className="w-24 h-24 mb-4 text-blue-500" />
-                <h3 className="mb-2 text-xl font-semibold">
+                <h3 className="mb-2 text-xl font-semibold dark:text-white">
                   Oops! No Services Available
                 </h3>
-                <p className="mb-6 text-lg text-gray-500">
+                <p className="mb-6 text-lg text-gray-500 dark:text-gray-400">
                   It seems like there are no services available at the moment.
                   Please check back later!
                 </p>
