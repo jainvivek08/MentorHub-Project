@@ -1,29 +1,35 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { FaUser } from "react-icons/fa"; // Import the user icon
-import { Dropdown, Menu } from "antd"; // Import Ant Design components
-import { AiOutlineDashboard } from "react-icons/ai"; // Import Dashboard icon
-import { FiLogOut } from "react-icons/fi"; // Import Logout icon
-import { FaVideo } from "react-icons/fa"; // Import Sessions icon
+import { FaUser } from "react-icons/fa";
+import { Dropdown, Menu } from "antd";
+import { AiOutlineDashboard } from "react-icons/ai";
+import { FiLogOut } from "react-icons/fi";
+import { FaVideo } from "react-icons/fa";
 import logo from "../assets/logo-no-background.png";
 import useUserStore from "../store/user";
 import { removeToken } from "../helper";
+
 export const Nav = () => {
   const navigate = useNavigate();
-  const { user, setUser } = useUserStore(); // Destructure setUser from store
+  const { user, setUser } = useUserStore();
+
   const signInBtnClick = () => {
     navigate("/signin");
   };
+
   const signUpStudentBtnClick = () => {
     navigate("/signup/student");
   };
+
   const signUpMentorBtnClick = () => {
     navigate("/signup/mentor");
   };
+
   const onButtonClick = () => {
-    removeToken(); // Assuming you have this function to remove the token
+    removeToken();
     setUser(null);
     navigate("/");
   };
+
   const menu = (
     <Menu>
       <Menu.Item key="1" icon={<AiOutlineDashboard />}>
@@ -43,6 +49,7 @@ export const Nav = () => {
       </Menu.Item>
     </Menu>
   );
+
   return (
     <div className="bg-gray-900">
       <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
@@ -82,13 +89,12 @@ export const Nav = () => {
           ) : (
             <Dropdown overlay={menu} trigger={["hover"]}>
               <button className="flex items-center justify-center font-medium tracking-wide text-gray-600 transition-colors duration-200 border border-white rounded-full w-9 h-9 hover:text-black">
-                <FaUser className="text-white" /> {/* User Icon */}
+                <FaUser className="text-white" />
               </button>
             </Dropdown>
           )}
-          <div className="lg:hidden">
-            {/* Mobile menu code remains unchanged */}
-          </div>
+
+          <div className="lg:hidden"></div>
         </div>
       </div>
     </div>
