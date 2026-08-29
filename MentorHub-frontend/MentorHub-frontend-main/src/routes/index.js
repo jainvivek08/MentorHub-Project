@@ -2,6 +2,7 @@ import SignIn from "../page/signin";
 import SignUp from "../page/signup";
 import Home from "../page";
 import Dashboard from "../page/dashboard/dashboard";
+import Overview from "../page/dashboard/overview";
 import Services from "../page/dashboard/services";
 import Profile from "../page/dashboard/profile";
 import Schedule from "../page/dashboard/schedule";
@@ -33,6 +34,11 @@ const routes = [
   {
     path: "/dashboard",
     element: <Dashboard />,
+    isProtected: true,
+  },
+  {
+    path: "/dashboard/overview",
+    element: <Overview />,
     isProtected: true,
   },
   {
