@@ -13,10 +13,12 @@ const ServiceCardUserSide = ({ service, username }) => {
     <>
       <div
         onClick={onCardClick}
-        className="p-4 bg-gray-100 shadow-2xl cursor-pointer group rounded-2xl"
+        className="p-4 bg-gray-100 shadow-2xl cursor-pointer group rounded-2xl dark:bg-gray-800"
       >
-        <div className="py-2 text-2xl font-bold lg:pb-12">{service?.name}</div>
-        <div className="p-2 bg-gray-200 group-hover:bg-gray-300 rounded-2xl">
+        <div className="py-2 text-2xl font-bold text-gray-900 lg:pb-12 dark:text-white">
+          {service?.name}
+        </div>
+        <div className="p-2 bg-gray-200 group-hover:bg-gray-300 rounded-2xl dark:bg-gray-700 dark:group-hover:bg-gray-600">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <svg
@@ -27,7 +29,7 @@ const ServiceCardUserSide = ({ service, username }) => {
                 stroke="currentColor"
                 aria-hidden="true"
                 data-slot="icon"
-                className="w-8 h-8 m-2 shrink-0"
+                className="w-8 h-8 m-2 shrink-0 text-gray-900 dark:text-white"
               >
                 <path
                   strokeLinecap="round"
@@ -37,13 +39,15 @@ const ServiceCardUserSide = ({ service, username }) => {
               </svg>
               <div className="flex flex-col ml-2">
                 {" "}
-                <div className="text-sm font-bold">
+                <div className="text-sm font-bold text-gray-900 dark:text-white">
                   {service?.duration} mins
                 </div>
-                <div className="text-sm">Video Meeting</div>
+                <div className="text-sm text-gray-700 dark:text-gray-300">
+                  Video Meeting
+                </div>
               </div>
             </div>
-            <div className="flex items-center border border-gray-600 rounded-full group-hover:bg-black group-hover:text-white">
+            <div className="flex items-center text-gray-900 border border-gray-600 rounded-full dark:text-white dark:border-gray-500 group-hover:bg-black group-hover:text-white">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
