@@ -1,59 +1,63 @@
-import React from "react";
-import { Table } from "antd";
-import { AiOutlineDollarCircle } from "react-icons/ai";
-import Dashboard from "./dashboard"; // Assuming the Dashboard layout is used for consistent structure
+import React, { useEffect, useState } from "react";
+import { Table, Spin } from "antd";
+import Dashboard from "./dashboard";
 import { MdOutlineCurrencyRupee } from "react-icons/md";
+import moment from "moment";
+import booking from "../../apiManger/booking";
+
+// A couple of sample rows shown alongside real data (for demo purposes)
+const sampleRows = [
+  {
+    key: "sample-1",
+    no: 1,
+    studentName: "Jane Doe",
+    transactionId: "TXN12345",
+    date: "2024-10-15",
+    amount: "₹50",
+    status: "Completed",
+  },
+  {
+    key: "sample-2",
+    no: 2,
+    studentName: "Mark Smith",
+    transactionId: "TXN67890",
+    date: "2024-10-10",
+    amount: "₹75",
+    status: "Completed",
+  },
+];
 
 const Payment = () => {
-  // Hardcoded payment data (you can replace it later with real data)
-  const paymentHistory = [
-    {
-      key: "1",
-      no: "1",
-      studentName: "Jane Doe",
-      transactionId: "TXN12345",
-      date: "2024-10-15",
-      amount: "₹50",
-      status: "Completed",
-    },
-    {
-      key: "2",
-      no: "2",
-      studentName: "Mark Smith",
-      transactionId: "TXN67890",
-      date: "2024-10-10",
-      amount: "₹75",
-      status: "Completed",
-    },
-    {
-      key: "3",
-      no: "3",
-      studentName: "Anna Johnson",
-      transactionId: "TXN24680",
-      date: "2024-09-30",
-      amount: "₹100",
-      status: "Completed",
-    },
-    {
-      key: "4",
-      no: "4",
-      studentName: "Emily Davis",
-      transactionId: "TXN13579",
-      date: "2024-09-25",
-      amount: "₹60",
-      status: "Completed",
-    },
-    {
-      key: "5",
-      no: "5",
-      studentName: "Michael Brown",
-      transactionId: "TXN86420",
-      date: "2024-09-20",
-      amount: "₹85",
-      status: "Completed",
-    },
-    // Add more records as needed...
-  ];
+  const [paymentHistory, setPaymentHistory] = useState(sampleRows);
+  const [loading, setLoading] = useState(true);
+
+  const fetchPayments = async () => {
+    setLoading(true);
+    try {
+      const res = await booking.getMentorBookings();
+      const bookings = res?.data?.bookings || [];
+
+      const realRows = bookings
+        .filter((b) => b.status !== "cancelled")
+        .map((b, index) => ({
+          key: b._id,
+          no: sampleRows.length + index + 1,
+          studentName: b.user?.name || "Unknown Student",
+          transactionId: b._id,
+          date: moment(b.dateAndTime).format("YYYY-MM-DD"),
+          amount: `₹${b.price}`,
+          status: b.status === "confirmed" ? "Completed" : "Pending",
+        }));
+
+      setPaymentHistory([...sampleRows, ...realRows]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPayments();
+  }, []);
 
   const columns = [
     {
@@ -70,6 +74,7 @@ const Payment = () => {
       title: "Transaction ID",
       dataIndex: "transactionId",
       key: "transactionId",
+      ellipsis: true,
     },
     {
       title: "Date",
@@ -88,7 +93,7 @@ const Payment = () => {
       render: (status) => (
         <span
           className={`status ${
-            status === "Completed" ? "text-green-500" : "text-red-500"
+            status === "Completed" ? "text-green-500" : "text-orange-500"
           }`}
         >
           {status}
@@ -104,16 +109,21 @@ const Payment = () => {
           <MdOutlineCurrencyRupee className="mr-2 text-3xl text-blue-600" />
           <h2 className="text-2xl font-bold">Payment History</h2>
         </div>
-        <Table
-          columns={columns}
-          dataSource={paymentHistory}
-          pagination={{
-            pageSize: 3, // Number of rows per page
-            showSizeChanger: false, // Allows the user to change page size
-            pageSizeOptions: ["3", "5", "10"], // Options for page size
-          }}
-          className="w-full"
-        />
+        {loading ? (
+          <div className="flex justify-center py-10">
+            <Spin size="large" />
+          </div>
+        ) : (
+          <Table
+            columns={columns}
+            dataSource={paymentHistory}
+            pagination={{
+              pageSize: 5,
+              showSizeChanger: false,
+            }}
+            className="w-full"
+          />
+        )}
       </div>
     </Dashboard>
   );
