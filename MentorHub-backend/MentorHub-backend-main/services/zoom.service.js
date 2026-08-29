@@ -51,7 +51,10 @@ const createScheduledZoomMeeting = async (startTime, duration) => {
       }
     );
 
-    return response.data.join_url; // Return the meeting join URL
+   return {
+  joinUrl: response.data.join_url,
+  startUrl: response.data.start_url,
+};
   } catch (error) {
     console.error(
       "Error creating Zoom meeting:",
