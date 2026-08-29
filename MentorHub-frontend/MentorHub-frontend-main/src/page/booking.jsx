@@ -80,8 +80,10 @@ const Booking = () => {
           </Card>
         </div>
         <div className="md:w-2/3">
-          <Card className="p-4">
-            <h3 className="mb-2 text-lg font-semibold">Select Date</h3>
+          <Card className="p-4 dark:bg-gray-800 dark:border-gray-700">
+            <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+              Select Date
+            </h3>
             {loadingAvailability ? (
               <div className="flex items-center justify-center h-full">
                 <Spin size="large" />
@@ -96,7 +98,9 @@ const Booking = () => {
                     }}
                     key={item.id}
                     className={`p-2 rounded-md cursor-pointer ${
-                      activeIndex === index ? "bg-blue-600" : ""
+                      activeIndex === index
+                        ? "bg-blue-600 text-white"
+                        : "text-gray-900 dark:text-gray-200 dark:hover:bg-gray-700"
                     }`}
                   >
                     {moment(item.date).format("DD MMM")}
@@ -107,14 +111,18 @@ const Booking = () => {
 
             {activeIndex !== null && (
               <>
-                <h3 className="mb-2 text-lg font-semibold">Select Time Slot</h3>
+                <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+                  Select Time Slot
+                </h3>
                 <div className="flex gap-2 my-6 overflow-x-auto">
                   {mentorAvailability[activeIndex]?.slots?.map((slot) => (
                     <div
                       onClick={() => setSelectedSlot(slot.fullStart)}
                       key={slot.id}
                       className={`p-2 rounded-md cursor-pointer ${
-                        selectedSlot === slot.fullStart ? "bg-blue-600" : ""
+                        selectedSlot === slot.fullStart
+                          ? "bg-blue-600 text-white"
+                          : "text-gray-900 dark:text-gray-200 dark:hover:bg-gray-700"
                       }`}
                     >
                       {slot.startTime}
