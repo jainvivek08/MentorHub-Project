@@ -55,7 +55,7 @@ const TopMentors = () => {
           <Spin size="large" />
         </div>
       ) : (
-        <div className="grid max-w-5xl grid-cols-1 gap-6 mx-auto sm:grid-cols-2 md:grid-cols-3 place-items-center">
+        <div className="grid max-w-5xl grid-cols-1 gap-6 mx-auto sm:grid-cols-2 md:grid-cols-3">
           {topMentors.map((mentor) => {
             return <MentorCard mentor={mentor} key={mentor?._id} />;
           })}
