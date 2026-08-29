@@ -124,32 +124,6 @@ const Overview = () => {
                 </NavLink>
               </div>
             )}
-
-            {/* Quick stats */}
-            <div className="grid grid-cols-1 gap-6 mb-8 sm:grid-cols-2">
-              <div className="p-6 text-center bg-white border shadow-sm rounded-xl">
-                <p className="text-3xl font-bold text-purple-600">
-                  {upcomingSessions.length}
-                </p>
-                <p className="mt-1 text-sm text-gray-500">Upcoming Sessions</p>
-              </div>
-              <div className="p-6 text-center bg-white border shadow-sm rounded-xl">
-                <p className="text-3xl font-bold text-purple-600">
-                  {bookings.length}
-                </p>
-                <p className="mt-1 text-sm text-gray-500">Total Sessions Booked</p>
-              </div>
-            </div>
-
-            {bookings.length > 0 && (
-              <div className="text-center">
-                <NavLink to="/user-bookings">
-                  <button className="px-6 py-2 font-medium text-purple-600 transition-colors border border-purple-300 rounded-lg hover:bg-purple-50">
-                    View All Sessions
-                  </button>
-                </NavLink>
-              </div>
-            )}
           </>
         )}
       </div>
