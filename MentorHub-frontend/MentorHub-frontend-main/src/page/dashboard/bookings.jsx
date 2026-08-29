@@ -1,25 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button, Spin } from "antd";
+import { FaVideo } from "react-icons/fa";
 import moment from "moment";
 import booking from "../../apiManger/booking";
 import Dashboard from "./dashboard";
-
 const Booking = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("upcoming"); // 'upcoming' or 'past'
-
   const fetchBookings = async () => {
     setLoading(true);
     const res = await booking.getMentorBookings();
     setBookings(res?.data?.bookings);
     setLoading(false);
   };
-
   useEffect(() => {
     fetchBookings();
   }, []);
-
   // Filter bookings based on active tab
   const filteredBookings = bookings.filter((booking) => {
     if (activeTab === "upcoming") {
@@ -28,8 +25,13 @@ const Booking = () => {
       return moment(booking.dateAndTime).isBefore(moment()); // Past bookings
     }
   });
-
   const columns = [
+    {
+      title: "Student",
+      dataIndex: "user",
+      key: "user",
+      render: (user) => (user && user.name) || "-",
+    },
     {
       title: "Date",
       dataIndex: "dateAndTime",
@@ -53,18 +55,28 @@ const Booking = () => {
       key: "price",
       render: (price) => `₹${price}`,
     },
-    // {
-    //   title: "Action",
-    //   key: "action",
-    //   render: (text, record) =>
-    //     record.status === "pending" ? (
-    //       <Button type="primary" onClick={() => handlePayNow(record._id)}>
-    //         Pay Now
-    //       </Button>
-    //     ) : null,
-    // },
+    {
+      title: "Meeting",
+      key: "meeting",
+      render: (text, record) =>
+        record.status === "confirmed" &&
+        (record.startUrl || record.meetingLink) ? (
+          <Button
+            type="primary"
+            icon={<FaVideo />}
+            onClick={() =>
+              window.open(record.startUrl || record.meetingLink, "_blank")
+            }
+          >
+            Start Meeting
+          </Button>
+        ) : record.status === "pending" ? (
+          <span className="text-sm text-gray-400">Awaiting payment</span>
+        ) : (
+          <span className="text-sm text-gray-400">Link not ready</span>
+        ),
+    },
   ];
-
   // Apply different row class based on booking status
   const rowClassName = (record) => {
     if (record.status === "pending") {
@@ -74,7 +86,6 @@ const Booking = () => {
     }
     return "";
   };
-
   return (
     <Dashboard>
       <div className="container p-4 mx-auto">
@@ -93,7 +104,6 @@ const Booking = () => {
             Past Bookings
           </Button>
         </div>
-
         {loading ? (
           <Spin size="large" />
         ) : (
@@ -109,5 +119,4 @@ const Booking = () => {
     </Dashboard>
   );
 };
-
 export default Booking;
