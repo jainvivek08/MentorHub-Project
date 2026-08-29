@@ -26,8 +26,11 @@ const bookingSchema = new mongoose.Schema(
       required: true,
     },
     meetingLink: {
-      type: String,
-    },
+  type: String,
+},
+startUrl: {
+  type: String,
+},
     status: {
       type: String,
       enum: ["pending", "confirmed", "cancelled"],
