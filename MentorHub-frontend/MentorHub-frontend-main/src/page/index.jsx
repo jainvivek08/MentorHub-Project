@@ -166,30 +166,6 @@ const Home = () => {
           <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
             <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
               <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 dark:text-white sm:text-4xl md:mx-auto">
-                <span className="relative inline-block">
-                  <svg
-                    viewBox="0 0 52 24"
-                    fill="currentColor"
-                    className="absolute top-0 left-0 z-0 hidden w-32 -mt-8 -ml-20 text-blue-gray-100 lg:w-32 lg:-ml-28 lg:-mt-10 sm:block"
-                  >
-                    <defs>
-                      <pattern
-                        id="ea469ae8-e6ec-4aca-8875-fc402da4d16e"
-                        x="0"
-                        y="0"
-                        width=".135"
-                        height=".30"
-                      >
-                        <circle cx="1" cy="1" r=".7" />
-                      </pattern>
-                    </defs>
-                    <rect
-                      fill="url(#ea469ae8-e6ec-4aca-8875-fc402da4d16e)"
-                      width="52"
-                      height="24"
-                    />
-                  </svg>
-                </span>{" "}
                 "Empowering You with Tailored Mentorship"
               </h2>
               <p className="text-base text-gray-700 dark:text-gray-300 md:text-lg">
@@ -404,30 +380,6 @@ const Home = () => {
           <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
             <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
               <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 dark:text-white sm:text-4xl md:mx-auto">
-                <span className="relative inline-block">
-                  <svg
-                    viewBox="0 0 52 24"
-                    fill="currentColor"
-                    className="absolute top-0 left-0 z-0 hidden w-32 -mt-8 -ml-20 text-blue-gray-100 lg:w-32 lg:-ml-28 lg:-mt-10 sm:block"
-                  >
-                    <defs>
-                      <pattern
-                        id="ea469ae8-e6ec-4aca-8875-fc402da4d16e"
-                        x="0"
-                        y="0"
-                        width=".135"
-                        height=".30"
-                      >
-                        <circle cx="1" cy="1" r=".7" />
-                      </pattern>
-                    </defs>
-                    <rect
-                      fill="url(#ea469ae8-e6ec-4aca-8875-fc402da4d16e)"
-                      width="52"
-                      height="24"
-                    />
-                  </svg>
-                </span>{" "}
                 "Your Path to Success, Step by Step"
               </h2>
               <p className="text-base text-gray-700 dark:text-gray-300 md:text-lg">
@@ -669,30 +621,6 @@ const Home = () => {
             <div className="flex flex-col px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20 lg:flex-row">
               <div className="mb-5 lg:w-1/3 lg:mb-0 lg:mr-20">
                 <h2 className="relative mb-4 font-sans text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl sm:leading-none">
-                  <span className="relative inline-block">
-                    <svg
-                      viewBox="0 0 52 24"
-                      fill="currentColor"
-                      className="absolute top-0 left-0 z-0 hidden w-32 -mt-8 -ml-20 text-blue-gray-100 lg:w-32 lg:-ml-28 lg:-mt-10 sm:block"
-                    >
-                      <defs>
-                        <pattern
-                          id="6bfa0e57-faa2-4bb2-ac0e-310782e5eb2d"
-                          x="0"
-                          y="0"
-                          width=".135"
-                          height=".30"
-                        >
-                          <circle cx="1" cy="1" r=".7" />
-                        </pattern>
-                      </defs>
-                      <rect
-                        fill="url(#6bfa0e57-faa2-4bb2-ac0e-310782e5eb2d)"
-                        width="52"
-                        height="24"
-                      />
-                    </svg>
-                  </span>{" "}
                   Find the Perfect Mentor for Your Journey
                 </h2>
                 <p className="mb-4 text-gray-900 dark:text-white lg:mb-6">
