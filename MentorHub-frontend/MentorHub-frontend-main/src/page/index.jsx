@@ -24,7 +24,7 @@ const Home = () => {
   return (
     <>
       <Nav />
-      <div className="bg-white">
+      <div className="bg-white dark:bg-gray-900">
         {/* Hero Section */}
         <FadeInSection className="relative text-center bg-black">
           <img
@@ -106,9 +106,9 @@ const Home = () => {
         </FadeInSection>
 
         {/* About Section */}
-        <FadeInSection className="bg-[#F5EEE9]">
+        <FadeInSection className="bg-[#F5EEE9] dark:bg-gray-800">
           <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
-            <div className="flex flex-col max-w-screen-xl overflow-hidden bg-white border rounded shadow-sm lg:flex-row sm:mx-auto">
+            <div className="flex flex-col max-w-screen-xl overflow-hidden bg-white dark:bg-gray-900 border rounded shadow-sm lg:flex-row sm:mx-auto">
               <div className="relative lg:w-1/2">
                 <img
                   src="https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
@@ -123,7 +123,7 @@ const Home = () => {
                   <polygon points="17.3036738 5.68434189e-14 20 5.68434189e-14 20 104 0.824555778 104" />
                 </svg>
               </div>
-              <div className="p-8 bg-white lg:p-16 lg:pl-10 lg:w-1/2">
+              <div className="p-8 bg-white dark:bg-gray-900 lg:p-16 lg:pl-10 lg:w-1/2">
                 <h5 className="mb-3 text-3xl font-extrabold leading-none sm:text-4xl">
                   What is MentorHub?
                 </h5>
@@ -162,10 +162,10 @@ const Home = () => {
         </FadeInSection>
 
         {/* Features Section */}
-        <FadeInSection className="px-8 py-20 bg-white">
+        <FadeInSection className="px-8 py-20 bg-white dark:bg-gray-900">
           <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
             <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
-              <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
+              <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 dark:text-white sm:text-4xl md:mx-auto">
                 <span className="relative inline-block">
                   <svg
                     viewBox="0 0 52 24"
@@ -192,7 +192,7 @@ const Home = () => {
                 </span>{" "}
                 "Empowering You with Tailored Mentorship"
               </h2>
-              <p className="text-base text-gray-700 md:text-lg">
+              <p className="text-base text-gray-700 dark:text-gray-300 md:text-lg">
                 At MentorHub, we connect you with expert mentors who understand
                 your unique needs and learning goals. Whether you're looking to
                 advance in your career, gain a new skill, or find direction, our
@@ -203,7 +203,7 @@ const Home = () => {
             </div>
             <div className="grid gap-8 row-gap-10 lg:grid-cols-2">
               <div className="max-w-md sm:mx-auto sm:text-center">
-                <div className="flex items-center justify-center w-16 h-16 mb-4 transition-transform duration-300 rounded-full bg-indigo-50 sm:mx-auto sm:w-24 sm:h-24 hover:scale-110 hover:bg-indigo-100">
+                <div className="flex items-center justify-center w-16 h-16 mb-4 transition-transform duration-300 rounded-full bg-indigo-50 dark:bg-gray-800 sm:mx-auto sm:w-24 sm:h-24 hover:scale-110 hover:bg-indigo-100">
                   <svg
                     className="w-12 h-12 text-purple-600 sm:w-16 sm:h-16"
                     stroke="currentColor"
@@ -221,7 +221,7 @@ const Home = () => {
                 <h6 className="mb-3 text-xl font-bold leading-5">
                   Expert Mentorship
                 </h6>
-                <p className="mb-3 text-sm text-gray-900">
+                <p className="mb-3 text-sm text-gray-900 dark:text-white">
                   Get one-on-one guidance from professionals who have years of
                   experience in their fields. They are here to help you navigate
                   your career with personalized advice.
@@ -235,7 +235,7 @@ const Home = () => {
                 </a>
               </div>
               <div className="max-w-md sm:mx-auto sm:text-center">
-                <div className="flex items-center justify-center w-16 h-16 mb-4 transition-transform duration-300 rounded-full bg-indigo-50 sm:mx-auto sm:w-24 sm:h-24 hover:scale-110 hover:bg-indigo-100">
+                <div className="flex items-center justify-center w-16 h-16 mb-4 transition-transform duration-300 rounded-full bg-indigo-50 dark:bg-gray-800 sm:mx-auto sm:w-24 sm:h-24 hover:scale-110 hover:bg-indigo-100">
                   <svg
                     className="w-12 h-12 text-purple-600 sm:w-16 sm:h-16"
                     stroke="currentColor"
@@ -253,7 +253,7 @@ const Home = () => {
                 <h6 className="mb-3 text-xl font-bold leading-5">
                   Tailored Learning Paths
                 </h6>
-                <p className="mb-3 text-sm text-gray-900">
+                <p className="mb-3 text-sm text-gray-900 dark:text-white">
                   Choose from a variety of mentors that specialize in what you
                   need. Your learning goals and challenges will be the priority
                   in a mentorship plan designed just for you.
@@ -267,7 +267,7 @@ const Home = () => {
                 </a>
               </div>
               <div className="max-w-md sm:mx-auto sm:text-center">
-                <div className="flex items-center justify-center w-16 h-16 mb-4 transition-transform duration-300 rounded-full bg-indigo-50 sm:mx-auto sm:w-24 sm:h-24 hover:scale-110 hover:bg-indigo-100">
+                <div className="flex items-center justify-center w-16 h-16 mb-4 transition-transform duration-300 rounded-full bg-indigo-50 dark:bg-gray-800 sm:mx-auto sm:w-24 sm:h-24 hover:scale-110 hover:bg-indigo-100">
                   <svg
                     className="w-12 h-12 text-purple-600 sm:w-16 sm:h-16"
                     stroke="currentColor"
@@ -285,7 +285,7 @@ const Home = () => {
                 <h6 className="mb-3 text-xl font-bold leading-5">
                   Flexible Scheduling
                 </h6>
-                <p className="mb-3 text-sm text-gray-900">
+                <p className="mb-3 text-sm text-gray-900 dark:text-white">
                   Set your sessions based on your availability. Our mentors
                   offer flexible timings so you can fit learning into your
                   schedule without hassle.
@@ -299,7 +299,7 @@ const Home = () => {
                 </a>
               </div>
               <div className="max-w-md sm:mx-auto sm:text-center">
-                <div className="flex items-center justify-center w-16 h-16 mb-4 transition-transform duration-300 rounded-full bg-indigo-50 sm:mx-auto sm:w-24 sm:h-24 hover:scale-110 hover:bg-indigo-100">
+                <div className="flex items-center justify-center w-16 h-16 mb-4 transition-transform duration-300 rounded-full bg-indigo-50 dark:bg-gray-800 sm:mx-auto sm:w-24 sm:h-24 hover:scale-110 hover:bg-indigo-100">
                   <svg
                     className="w-12 h-12 text-purple-600 sm:w-16 sm:h-16"
                     stroke="currentColor"
@@ -317,7 +317,7 @@ const Home = () => {
                 <h6 className="mb-3 text-xl font-bold leading-5">
                   Goal-Oriented Sessions
                 </h6>
-                <p className="mb-3 text-sm text-gray-900">
+                <p className="mb-3 text-sm text-gray-900 dark:text-white">
                   Our mentors are dedicated to helping you achieve tangible
                   results. Whether you're aiming to learn a new skill, get
                   career advice, or grow professionally, your success is our
@@ -332,7 +332,7 @@ const Home = () => {
                 </a>
               </div>
               <div className="max-w-md sm:mx-auto sm:text-center">
-                <div className="flex items-center justify-center w-16 h-16 mb-4 transition-transform duration-300 rounded-full bg-indigo-50 sm:mx-auto sm:w-24 sm:h-24 hover:scale-110 hover:bg-indigo-100">
+                <div className="flex items-center justify-center w-16 h-16 mb-4 transition-transform duration-300 rounded-full bg-indigo-50 dark:bg-gray-800 sm:mx-auto sm:w-24 sm:h-24 hover:scale-110 hover:bg-indigo-100">
                   <svg
                     className="w-12 h-12 text-purple-600 sm:w-16 sm:h-16"
                     stroke="currentColor"
@@ -350,7 +350,7 @@ const Home = () => {
                 <h6 className="mb-3 text-xl font-bold leading-5">
                   Mentor Reviews & Ratings
                 </h6>
-                <p className="mb-3 text-sm text-gray-900">
+                <p className="mb-3 text-sm text-gray-900 dark:text-white">
                   Browse verified reviews and ratings from other students to
                   find the mentor that matches your learning style and
                   expectations.
@@ -364,7 +364,7 @@ const Home = () => {
                 </a>
               </div>
               <div className="max-w-md sm:mx-auto sm:text-center">
-                <div className="flex items-center justify-center w-16 h-16 mb-4 transition-transform duration-300 rounded-full bg-indigo-50 sm:mx-auto sm:w-24 sm:h-24 hover:scale-110 hover:bg-indigo-100">
+                <div className="flex items-center justify-center w-16 h-16 mb-4 transition-transform duration-300 rounded-full bg-indigo-50 dark:bg-gray-800 sm:mx-auto sm:w-24 sm:h-24 hover:scale-110 hover:bg-indigo-100">
                   <svg
                     className="w-12 h-12 text-purple-600 sm:w-16 sm:h-16"
                     stroke="currentColor"
@@ -382,7 +382,7 @@ const Home = () => {
                 <h6 className="mb-3 text-xl font-bold leading-5">
                   Seamless Onboarding
                 </h6>
-                <p className="mb-3 text-sm text-gray-900">
+                <p className="mb-3 text-sm text-gray-900 dark:text-white">
                   Easily create an account, browse mentors, and schedule your
                   first session in just a few clicks. Start your learning
                   journey in no time.
@@ -400,10 +400,10 @@ const Home = () => {
         </FadeInSection>
 
         {/* How It Works Section */}
-        <FadeInSection className="px-8 py-20 text-center bg-gray-50">
+        <FadeInSection className="px-8 py-20 text-center bg-gray-50 dark:bg-gray-950">
           <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
             <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
-              <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
+              <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 dark:text-white sm:text-4xl md:mx-auto">
                 <span className="relative inline-block">
                   <svg
                     viewBox="0 0 52 24"
@@ -430,7 +430,7 @@ const Home = () => {
                 </span>{" "}
                 "Your Path to Success, Step by Step"
               </h2>
-              <p className="text-base text-gray-700 md:text-lg">
+              <p className="text-base text-gray-700 dark:text-gray-300 md:text-lg">
                 MentorHub makes finding and connecting with the right mentor
                 simple and effective. Follow these easy steps to start your
                 personalized mentorship journey today, and unlock the guidance
@@ -471,7 +471,7 @@ const Home = () => {
                   </div>
                   <div className="pt-1 pb-8 text-start">
                     <p className="mb-2 text-lg font-bold">Sign Up</p>
-                    <p className="text-gray-700">
+                    <p className="text-gray-700 dark:text-gray-300">
                       Start the journey by creating a profile.
                     </p>
                   </div>
@@ -508,7 +508,7 @@ const Home = () => {
                   </div>
                   <div className="pt-1 pb-8 text-start">
                     <p className="mb-2 text-lg font-bold">Browse Mentors</p>
-                    <p className="text-gray-700">
+                    <p className="text-gray-700 dark:text-gray-300">
                       Search and explore mentors based on your specific needs.
                     </p>
                   </div>
@@ -545,7 +545,7 @@ const Home = () => {
                   </div>
                   <div className="pt-1 pb-8 text-start">
                     <p className="mb-2 text-lg font-bold">Select Your Mentor</p>
-                    <p className="text-gray-700">
+                    <p className="text-gray-700 dark:text-gray-300">
                       Check mentor profiles and reviews to find the perfect fit.
                     </p>
                   </div>
@@ -582,7 +582,7 @@ const Home = () => {
                   </div>
                   <div className="pt-1 pb-8 text-start">
                     <p className="mb-2 text-lg font-bold">Book a Session</p>
-                    <p className="text-gray-700">
+                    <p className="text-gray-700 dark:text-gray-300">
                       Schedule sessions at a time that works for you.
                     </p>
                   </div>
@@ -619,7 +619,7 @@ const Home = () => {
                   </div>
                   <div className="pt-1 pb-8 text-start">
                     <p className="mb-2 text-lg font-bold">Start Learning</p>
-                    <p className="text-gray-700">
+                    <p className="text-gray-700 dark:text-gray-300">
                       Begin your customized mentorship journey and achieve your
                       goals.
                     </p>
@@ -648,7 +648,7 @@ const Home = () => {
                   </div>
                   <div className="pt-1">
                     <p className="mb-2 text-lg font-bold">Success</p>
-                    <p className="text-gray-700" />
+                    <p className="text-gray-700 dark:text-gray-300" />
                   </div>
                 </div>
               </div>
@@ -664,11 +664,11 @@ const Home = () => {
         </FadeInSection>
 
         {/* Mentor Categories Section */}
-        <FadeInSection className="px-8 py-20 bg-white">
+        <FadeInSection className="px-8 py-20 bg-white dark:bg-gray-900">
           <div>
             <div className="flex flex-col px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20 lg:flex-row">
               <div className="mb-5 lg:w-1/3 lg:mb-0 lg:mr-20">
-                <h2 className="relative mb-4 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
+                <h2 className="relative mb-4 font-sans text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl sm:leading-none">
                   <span className="relative inline-block">
                     <svg
                       viewBox="0 0 52 24"
@@ -695,7 +695,7 @@ const Home = () => {
                   </span>{" "}
                   Find the Perfect Mentor for Your Journey
                 </h2>
-                <p className="mb-4 text-gray-900 lg:mb-6">
+                <p className="mb-4 text-gray-900 dark:text-white lg:mb-6">
                   Explore a wide range of mentor categories to find the perfect
                   match for your personal or professional growth. Our mentors
                   are ready to guide you in mastering new skills, overcoming
@@ -718,7 +718,7 @@ const Home = () => {
               </div>
               <div className="flex-grow pt-1">
                 <div className="flex items-center mb-3">
-                  <span className="font-bold tracking-wide text-gray-900">
+                  <span className="font-bold tracking-wide text-gray-900 dark:text-white">
                     Categories
                   </span>
                   <span className="ml-1">
@@ -862,9 +862,9 @@ const Home = () => {
         </FadeInSection>
 
         {/* Pricing Section */}
-        <FadeInSection className="px-8 py-20 text-center bg-white">
+        <FadeInSection className="px-8 py-20 text-center bg-white dark:bg-gray-900">
           <h2 className="mb-12 text-4xl font-bold">Affordable Pricing</h2>
-          <p className="max-w-4xl mx-auto mb-6 text-xl text-gray-700">
+          <p className="max-w-4xl mx-auto mb-6 text-xl text-gray-700 dark:text-gray-300">
             We offer affordable plans for both students and mentors. Get started
             with a free account and explore paid mentorship options that fit
             your needs.
@@ -875,16 +875,16 @@ const Home = () => {
         </FadeInSection>
 
         {/* FAQs Section */}
-        <FadeInSection className="px-6 py-16 bg-white">
+        <FadeInSection className="px-6 py-16 bg-white dark:bg-gray-900">
           <div className="max-w-screen-lg mx-auto">
-            <h2 className="mb-10 text-4xl font-bold text-center text-gray-900">
+            <h2 className="mb-10 text-4xl font-bold text-center text-gray-900 dark:text-white">
               Frequently Asked Questions
             </h2>
 
             <div className="space-y-4">
-              <div className="pb-4 border-b border-gray-300">
+              <div className="pb-4 border-b border-gray-300 dark:border-gray-700">
                 <button
-                  className="flex items-center justify-between w-full text-lg font-medium text-gray-900 transition-colors hover:text-purple-600"
+                  className="flex items-center justify-between w-full text-lg font-medium text-gray-900 dark:text-white transition-colors hover:text-purple-600"
                   onClick={() => toggleFAQ(1)}
                 >
                   What is MentorHub?
@@ -906,7 +906,7 @@ const Home = () => {
                   </span>
                 </button>
                 <div
-                  className={`mt-2 text-gray-700 transition-height duration-300 ease-in-out ${
+                  className={`mt-2 text-gray-700 dark:text-gray-300 transition-height duration-300 ease-in-out ${
                     isOpen[1] ? "max-h-screen" : "max-h-0 overflow-hidden"
                   }`}
                 >
@@ -919,9 +919,9 @@ const Home = () => {
                 </div>
               </div>
 
-              <div className="pb-4 border-b border-gray-300">
+              <div className="pb-4 border-b border-gray-300 dark:border-gray-700">
                 <button
-                  className="flex items-center justify-between w-full text-lg font-medium text-gray-900 transition-colors hover:text-purple-600"
+                  className="flex items-center justify-between w-full text-lg font-medium text-gray-900 dark:text-white transition-colors hover:text-purple-600"
                   onClick={() => toggleFAQ(2)}
                 >
                   How do I sign up as a mentor?
@@ -943,7 +943,7 @@ const Home = () => {
                   </span>
                 </button>
                 <div
-                  className={`mt-2 text-gray-700 transition-height duration-300 ease-in-out ${
+                  className={`mt-2 text-gray-700 dark:text-gray-300 transition-height duration-300 ease-in-out ${
                     isOpen[2] ? "max-h-screen" : "max-h-0 overflow-hidden"
                   }`}
                 >
@@ -956,9 +956,9 @@ const Home = () => {
                 </div>
               </div>
 
-              <div className="pb-4 border-b border-gray-300">
+              <div className="pb-4 border-b border-gray-300 dark:border-gray-700">
                 <button
-                  className="flex items-center justify-between w-full text-lg font-medium text-gray-900 transition-colors hover:text-purple-600"
+                  className="flex items-center justify-between w-full text-lg font-medium text-gray-900 dark:text-white transition-colors hover:text-purple-600"
                   onClick={() => toggleFAQ(3)}
                 >
                   Can I choose my mentor?
@@ -980,7 +980,7 @@ const Home = () => {
                   </span>
                 </button>
                 <div
-                  className={`mt-2 text-gray-700 transition-height duration-300 ease-in-out ${
+                  className={`mt-2 text-gray-700 dark:text-gray-300 transition-height duration-300 ease-in-out ${
                     isOpen[3] ? "max-h-screen" : "max-h-0 overflow-hidden"
                   }`}
                 >
@@ -992,9 +992,9 @@ const Home = () => {
                 </div>
               </div>
 
-              <div className="pb-4 border-b border-gray-300">
+              <div className="pb-4 border-b border-gray-300 dark:border-gray-700">
                 <button
-                  className="flex items-center justify-between w-full text-lg font-medium text-gray-900 transition-colors hover:text-purple-600"
+                  className="flex items-center justify-between w-full text-lg font-medium text-gray-900 dark:text-white transition-colors hover:text-purple-600"
                   onClick={() => toggleFAQ(4)}
                 >
                   What are the costs involved?
@@ -1016,7 +1016,7 @@ const Home = () => {
                   </span>
                 </button>
                 <div
-                  className={`mt-2 text-gray-700 transition-height duration-300 ease-in-out ${
+                  className={`mt-2 text-gray-700 dark:text-gray-300 transition-height duration-300 ease-in-out ${
                     isOpen[4] ? "max-h-screen" : "max-h-0 overflow-hidden"
                   }`}
                 >
@@ -1028,9 +1028,9 @@ const Home = () => {
                 </div>
               </div>
 
-              <div className="pb-4 border-b border-gray-300">
+              <div className="pb-4 border-b border-gray-300 dark:border-gray-700">
                 <button
-                  className="flex items-center justify-between w-full text-lg font-medium text-gray-900 transition-colors hover:text-purple-600"
+                  className="flex items-center justify-between w-full text-lg font-medium text-gray-900 dark:text-white transition-colors hover:text-purple-600"
                   onClick={() => toggleFAQ(5)}
                 >
                   How does the mentoring process work?
@@ -1052,7 +1052,7 @@ const Home = () => {
                   </span>
                 </button>
                 <div
-                  className={`mt-2 text-gray-700 transition-height duration-300 ease-in-out ${
+                  className={`mt-2 text-gray-700 dark:text-gray-300 transition-height duration-300 ease-in-out ${
                     isOpen[5] ? "max-h-screen" : "max-h-0 overflow-hidden"
                   }`}
                 >
@@ -1064,9 +1064,9 @@ const Home = () => {
                 </div>
               </div>
 
-              <div className="pb-4 border-b border-gray-300">
+              <div className="pb-4 border-b border-gray-300 dark:border-gray-700">
                 <button
-                  className="flex items-center justify-between w-full text-lg font-medium text-gray-900 transition-colors hover:text-purple-600"
+                  className="flex items-center justify-between w-full text-lg font-medium text-gray-900 dark:text-white transition-colors hover:text-purple-600"
                   onClick={() => toggleFAQ(6)}
                 >
                   Is there a support system if I face issues?
@@ -1088,7 +1088,7 @@ const Home = () => {
                   </span>
                 </button>
                 <div
-                  className={`mt-2 text-gray-700 transition-height duration-300 ease-in-out ${
+                  className={`mt-2 text-gray-700 dark:text-gray-300 transition-height duration-300 ease-in-out ${
                     isOpen[6] ? "max-h-screen" : "max-h-0 overflow-hidden"
                   }`}
                 >
@@ -1112,7 +1112,7 @@ const Home = () => {
             Join MentorHub today and connect with experienced professionals who
             can guide you through your journey!
           </p>
-          <button className="px-8 py-3 font-semibold text-purple-600 transition bg-white rounded-lg hover:bg-gray-200">
+          <button className="px-8 py-3 font-semibold text-purple-600 transition bg-white dark:bg-gray-900 rounded-lg hover:bg-gray-200">
             Get Started Now
           </button>
         </FadeInSection>
