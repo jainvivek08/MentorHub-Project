@@ -1,4 +1,6 @@
 import SignIn from "../page/signin";
+import ForgotPassword from "../page/forgotPassword";
+import ResetPassword from "../page/resetPassword";
 import SignUp from "../page/signup";
 import Home from "../page";
 import Dashboard from "../page/dashboard/dashboard";
@@ -29,6 +31,16 @@ const routes = [
   {
     path: "/signin",
     element: <SignIn />,
+    isProtected: false,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPassword />,
+    isProtected: false,
+  },
+  {
+    path: "/reset-password",
+    element: <ResetPassword />,
     isProtected: false,
   },
   {
