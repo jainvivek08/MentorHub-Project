@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Spin, Empty } from "antd";
-import { FaClock, FaVideo, FaCalendarAlt, FaUserCircle } from "react-icons/fa";
+import { FaClock, FaVideo, FaCalendarAlt, FaUserCircle, FaStar } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 import moment from "moment";
 import Layout from "../../components/Layout";
 import booking from "../../apiManger/booking";
@@ -102,12 +103,20 @@ const SessionCard = ({ record }) => {
 
       <div className="flex items-center gap-3 px-5 py-4 border-t border-gray-100">
         <FaUserCircle className="text-3xl text-gray-300" />
-        <div>
+        <div className="flex-1">
           <p className="text-sm font-semibold text-gray-800">
             {record.mentor?.name || "Mentor"}
           </p>
           <p className="text-xs text-gray-400">Your session mentor</p>
         </div>
+        {!isUpcoming && record.status === "confirmed" && record.mentor?.username && (
+          <NavLink
+            to={`/mentor/${record.mentor.username}?bookingId=${record._id}`}
+            className="flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-yellow-700 bg-yellow-50 border border-yellow-200 rounded-full hover:bg-yellow-100"
+          >
+            <FaStar className="text-yellow-500" /> Leave a review
+          </NavLink>
+        )}
       </div>
     </div>
   );
