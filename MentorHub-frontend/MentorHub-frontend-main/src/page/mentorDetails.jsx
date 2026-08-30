@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import mentorAPI from "../apiManger/mentor";
+import reviewAPI from "../apiManger/review";
+import useUserStore from "../store/user";
 import { Spin } from "antd";
+import toast from "react-hot-toast";
 import {
   AiFillFacebook,
   AiFillGithub,
@@ -11,14 +14,30 @@ import {
 } from "react-icons/ai";
 import ServiceCardUserSide from "../components/ServiceCardUserSide";
 import Layout from "../components/Layout";
+import StarRating from "../components/StarRating";
 import { BiErrorAlt } from "react-icons/bi";
 
 const MentorDetails = () => {
   const { username } = useParams();
+  const [searchParams] = useSearchParams();
+  const bookingId = searchParams.get("bookingId");
+  const { user } = useUserStore();
+
   const [mentor, setMentor] = useState();
   const [services, setServices] = useState();
   const [mentorLoading, setMentorLoading] = useState(true); // Separate loading state for mentor
   const [servicesLoading, setServicesLoading] = useState(true); // Separate loading state for services
+
+  const [reviews, setReviews] = useState([]);
+  const [reviewStats, setReviewStats] = useState({
+    averageRating: 0,
+    reviewCount: 0,
+  });
+  const [reviewsLoading, setReviewsLoading] = useState(true);
+
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     const fetchMentorDetails = async () => {
@@ -39,9 +58,55 @@ const MentorDetails = () => {
     fetchMentorDetails();
   }, [username]);
 
+  const fetchReviews = async (mentorId) => {
+    setReviewsLoading(true);
+    try {
+      const res = await reviewAPI.getMentorReviews(mentorId);
+      setReviews(res?.data?.reviews || []);
+      setReviewStats({
+        averageRating: res?.data?.averageRating || 0,
+        reviewCount: res?.data?.reviewCount || 0,
+      });
+    } catch (error) {
+      console.error("Error fetching reviews:", error);
+    } finally {
+      setReviewsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (mentor?._id) {
+      fetchReviews(mentor._id);
+    }
+  }, [mentor?._id]);
+
+  const onSubmitReview = async (e) => {
+    e.preventDefault();
+
+    if (!rating) {
+      toast.error("Please select a star rating");
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      await reviewAPI.createReview({ bookingId, rating, comment });
+      toast.success("Thanks for your feedback!");
+      setRating(0);
+      setComment("");
+      fetchReviews(mentor._id);
+    } catch (error) {
+      toast.error(
+        error?.response?.data?.message || "Could not submit your review"
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <Layout>
-      <div className="h-screen mx-auto">
+      <div className="mx-auto min-h-screen">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {/* Mentor's Profile */}
           <div className="col-span-1 p-6">
@@ -62,6 +127,14 @@ const MentorDetails = () => {
                 <h2 className="mt-4 text-3xl font-bold text-center dark:text-white">
                   {mentor?.name}
                 </h2>
+                <div className="flex items-center justify-center gap-2 mt-1">
+                  <StarRating value={reviewStats.averageRating} size="text-sm" />
+                  <span className="text-xs text-gray-500 dark:text-gray-400">
+                    {reviewStats.reviewCount > 0
+                      ? `${reviewStats.averageRating.toFixed(1)} (${reviewStats.reviewCount} review${reviewStats.reviewCount === 1 ? "" : "s"})`
+                      : "No reviews yet"}
+                  </span>
+                </div>
                 <p className="mt-2 text-center text-gray-600 dark:text-gray-400">
                   {mentor?.profile?.title}
                 </p>
@@ -169,6 +242,70 @@ const MentorDetails = () => {
               </div>
             )}
           </div>
+        </div>
+
+        {/* Reviews Section */}
+        <div className="max-w-4xl px-6 py-10 mx-auto">
+          <h3 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
+            Reviews {reviewStats.reviewCount > 0 && `(${reviewStats.reviewCount})`}
+          </h3>
+
+          {user?.role === "student" && bookingId && (
+            <form
+              onSubmit={onSubmitReview}
+              className="p-5 mb-6 bg-white border border-gray-200 rounded-xl dark:bg-gray-800 dark:border-gray-700"
+            >
+              <p className="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-200">
+                Rate your session with {mentor?.name}
+              </p>
+              <StarRating value={rating} onChange={setRating} interactive size="text-2xl" />
+              <textarea
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                rows={3}
+                placeholder="Share details about your experience (optional)"
+                className="w-full px-4 py-2 mt-4 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+              />
+              <button
+                type="submit"
+                disabled={submitting}
+                className="px-6 py-2 mt-3 font-semibold text-white transition-colors bg-blue-500 rounded-lg hover:bg-blue-600 disabled:opacity-50"
+              >
+                {submitting ? "Submitting..." : "Submit review"}
+              </button>
+            </form>
+          )}
+
+          {reviewsLoading ? (
+            <div className="flex justify-center py-8">
+              <Spin size="large" />
+            </div>
+          ) : reviews.length === 0 ? (
+            <p className="text-gray-500 dark:text-gray-400">
+              No reviews yet. Be the first to review this mentor!
+            </p>
+          ) : (
+            <div className="space-y-4">
+              {reviews.map((review) => (
+                <div
+                  key={review._id}
+                  className="p-4 bg-white border border-gray-200 rounded-xl dark:bg-gray-800 dark:border-gray-700"
+                >
+                  <div className="flex items-center justify-between">
+                    <p className="font-semibold text-gray-800 dark:text-white">
+                      {review.student?.name || "Student"}
+                    </p>
+                    <StarRating value={review.rating} size="text-sm" />
+                  </div>
+                  {review.comment && (
+                    <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
+                      {review.comment}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </Layout>
