@@ -35,6 +35,20 @@ const sendConfirmationMail = async (to, name, meetingLink, date, time) => {
   return sendEmail(to, subject, data);
 };
 
+const sendResetPasswordMail = async (to, name, resetLink, expiresInMinutes) => {
+  const subject = "Reset your MentorHub password";
+
+  const template = path.join(__dirname, "../template/resetPassword.ejs");
+  const data = await ejs.renderFile(template, {
+    name,
+    resetLink,
+    expiresInMinutes,
+  });
+
+  return sendEmail(to, subject, data);
+};
+
 module.exports = {
   sendConfirmationMail,
+  sendResetPasswordMail,
 };
