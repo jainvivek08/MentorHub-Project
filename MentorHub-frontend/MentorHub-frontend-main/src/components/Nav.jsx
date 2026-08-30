@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaBars, FaTimes } from "react-icons/fa";
 import { Dropdown, Menu } from "antd";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { FiLogOut, FiSun, FiMoon } from "react-icons/fi";
@@ -13,20 +14,27 @@ export const Nav = () => {
   const navigate = useNavigate();
   const { user, setUser } = useUserStore();
   const { isDark, toggleTheme } = useThemeStore();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
   const signInBtnClick = () => {
+    closeMobileMenu();
     navigate("/signin");
   };
 
   const signUpStudentBtnClick = () => {
+    closeMobileMenu();
     navigate("/signup/student");
   };
 
   const signUpMentorBtnClick = () => {
+    closeMobileMenu();
     navigate("/signup/mentor");
   };
 
   const onButtonClick = () => {
+    closeMobileMenu();
     removeToken();
     setUser(null);
     navigate("/");
@@ -97,16 +105,92 @@ export const Nav = () => {
                 </li>
               </ul>
             ) : (
-              <Dropdown overlay={menu} trigger={["hover"]}>
-                <button className="flex items-center justify-center font-medium tracking-wide text-gray-600 transition-colors duration-200 border border-white rounded-full w-9 h-9 hover:text-black">
-                  <FaUser className="text-white" />
-                </button>
-              </Dropdown>
+              <div className="hidden lg:block">
+                <Dropdown overlay={menu} trigger={["hover"]}>
+                  <button className="flex items-center justify-center font-medium tracking-wide text-gray-600 transition-colors duration-200 border border-white rounded-full w-9 h-9 hover:text-black">
+                    <FaUser className="text-white" />
+                  </button>
+                </Dropdown>
+              </div>
+            )}
+
+            {/* Hamburger toggle - only visible below lg breakpoint */}
+            <button
+              onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+              aria-label="Toggle menu"
+              className="flex items-center justify-center w-9 h-9 text-gray-200 lg:hidden"
+            >
+              {isMobileMenuOpen ? (
+                <FaTimes className="text-xl" />
+              ) : (
+                <FaBars className="text-xl" />
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile dropdown panel */}
+        {isMobileMenuOpen && (
+          <div className="pt-4 mt-4 border-t border-gray-700 lg:hidden">
+            {!user ? (
+              <ul className="flex flex-col gap-3">
+                <li>
+                  <button
+                    onClick={signUpMentorBtnClick}
+                    className="w-full h-12 px-6 font-medium tracking-wide text-left text-gray-100 transition-colors duration-200 border rounded hover:bg-white hover:text-black"
+                  >
+                    Become a Mentor with Us
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={signInBtnClick}
+                    className="w-full px-2 py-2 font-medium tracking-wide text-left text-gray-100 transition-colors duration-200 hover:text-teal-400"
+                  >
+                    Sign in
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={signUpStudentBtnClick}
+                    className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-purple-400 rounded shadow-md hover:bg-purple-700"
+                  >
+                    Sign up
+                  </button>
+                </li>
+              </ul>
+            ) : (
+              <ul className="flex flex-col gap-1">
+                <li>
+                  <NavLink
+                    to="/dashboard/profile"
+                    onClick={closeMobileMenu}
+                    className="flex items-center gap-3 px-2 py-3 font-medium tracking-wide text-gray-100 hover:text-teal-400"
+                  >
+                    <AiOutlineDashboard /> Dashboard
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/user-bookings"
+                    onClick={closeMobileMenu}
+                    className="flex items-center gap-3 px-2 py-3 font-medium tracking-wide text-gray-100 hover:text-teal-400"
+                  >
+                    <FaVideo /> My Sessions
+                  </NavLink>
+                </li>
+                <li>
+                  <button
+                    onClick={onButtonClick}
+                    className="flex items-center w-full gap-3 px-2 py-3 font-medium tracking-wide text-left text-gray-100 hover:text-teal-400"
+                  >
+                    <FiLogOut /> Logout
+                  </button>
+                </li>
+              </ul>
             )}
           </div>
-
-          <div className="lg:hidden"></div>
-        </div>
+        )}
       </div>
     </div>
   );
