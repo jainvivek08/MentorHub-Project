@@ -43,7 +43,7 @@ export const Nav = () => {
   const menu = (
     <Menu>
       <Menu.Item key="1" icon={<AiOutlineDashboard />}>
-        <NavLink className="text-base" to="/dashboard/profile">
+        <NavLink className="text-base" to="/dashboard/overview">
           Dashboard
         </NavLink>
       </Menu.Item>
@@ -163,7 +163,7 @@ export const Nav = () => {
               <ul className="flex flex-col gap-1">
                 <li>
                   <NavLink
-                    to="/dashboard/profile"
+                    to="/dashboard/overview"
                     onClick={closeMobileMenu}
                     className="flex items-center gap-3 px-2 py-3 font-medium tracking-wide text-gray-100 hover:text-teal-400"
                   >
