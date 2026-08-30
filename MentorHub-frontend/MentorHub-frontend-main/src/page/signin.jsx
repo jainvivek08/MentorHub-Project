@@ -100,6 +100,12 @@ const SignIn = () => {
                     >
                       Password
                     </label>
+                    <NavLink
+                      to="/forgot-password"
+                      className="text-sm text-blue-500 focus:outline-none focus:underline hover:underline"
+                    >
+                      Forgot password?
+                    </NavLink>
                   </div>
 
                   <input
