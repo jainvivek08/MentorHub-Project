@@ -1,6 +1,7 @@
 import React from "react";
 import { FaUniversity } from "react-icons/fa";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
+import StarRating from "./StarRating";
 
 const MentorCard = ({ mentor }) => {
   const navigate = useNavigate(); // Initialize useNavigate
@@ -43,6 +44,18 @@ const MentorCard = ({ mentor }) => {
               {mentor?.profile?.college || "College"}
             </p>
           </div>
+          {mentor?.profile?.reviewCount > 0 ? (
+            <div className="flex items-center gap-2 mt-1">
+              <StarRating value={mentor?.profile?.averageRating || 0} size="text-sm" />
+              <span className="text-xs text-gray-500 dark:text-gray-400">
+                {mentor.profile.averageRating.toFixed(1)} ({mentor.profile.reviewCount})
+              </span>
+            </div>
+          ) : (
+            <p className="mt-1 text-xs text-gray-400 dark:text-gray-500">
+              No reviews yet
+            </p>
+          )}
         </div>
         <div className="flex flex-wrap gap-2 mt-2">
           {mentor?.profile?.tags.map((tag, index) => {
