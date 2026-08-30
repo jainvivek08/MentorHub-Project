@@ -7,6 +7,7 @@ import computerchip from "../assets/computer-chip.png";
 import graduated from "../assets/graduated.png";
 import coding from "../assets/coding.png";
 import TopMentors from "../components/TopMentors";
+import Stats from "../components/Stats";
 import FadeInSection from "../components/FadeInSection";
 import { Nav } from "../components/Nav";
 import { NavLink } from "react-router-dom";
@@ -104,6 +105,8 @@ const Home = () => {
             />
           </div>
         </FadeInSection>
+
+        <Stats />
 
         {/* About Section */}
         <FadeInSection className="bg-[#F5EEE9] dark:bg-gray-800">
