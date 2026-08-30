@@ -37,4 +37,27 @@ const signIn = async (req, res) => {
   });
 };
 
-module.exports = { signUp, signIn };
+const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  await userService.forgotPassword(email);
+
+  // Always respond the same way, whether or not the email exists,
+  // so we don't leak which emails are registered.
+  return res.status(httpStatus.ok).json({
+    message:
+      "If an account exists for that email, a password reset link has been sent.",
+  });
+};
+
+const resetPassword = async (req, res) => {
+  const { token, password } = req.body;
+
+  await userService.resetPassword(token, password);
+
+  return res.status(httpStatus.ok).json({
+    message: "Password has been reset successfully",
+  });
+};
+
+module.exports = { signUp, signIn, forgotPassword, resetPassword };
