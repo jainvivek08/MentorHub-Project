@@ -10,7 +10,12 @@ module.exports = {
     verificationSecret: process.env.JWT_VERIFICATION_SECRET || "random-secret",
     verificationExpirationMinutes:
       process.env.JWT_VERIFICATION_EXPIRATION_MINUTES || 5,
+    resetPasswordSecret:
+      process.env.JWT_RESET_PASSWORD_SECRET || "random-secret",
+    resetPasswordExpirationMinutes:
+      process.env.JWT_RESET_PASSWORD_EXPIRATION_MINUTES || 15,
   },
+  frontendUrl: process.env.FRONTEND_URL || "http://localhost:3000",
   cloudinary: {
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
