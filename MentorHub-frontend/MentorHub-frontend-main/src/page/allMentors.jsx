@@ -9,6 +9,7 @@ import Layout from "../components/Layout";
 const AllMentors = () => {
   const { mentorsData, setMentorsData } = useMentorStore();
   const [loading, setLoading] = useState(false); // State for tracking loading status
+  const [searchTerm, setSearchTerm] = useState("");
 
   // Fetch mentors when the component mounts if mentorsData is empty
   useEffect(() => {
@@ -30,18 +31,37 @@ const AllMentors = () => {
     }
   }, [mentorsData, setMentorsData]);
 
+  const normalizedSearch = searchTerm.trim().toLowerCase();
+
+  const filteredMentors = mentorsData.filter((mentor) => {
+    if (!normalizedSearch) return true;
+
+    const haystacks = [
+      mentor?.name,
+      mentor?.profile?.title,
+      mentor?.profile?.college,
+      ...(mentor?.profile?.tags || []),
+    ];
+
+    return haystacks.some((value) =>
+      value?.toLowerCase().includes(normalizedSearch)
+    );
+  });
+
   return (
     <Layout>
       <div className="container mx-auto my-10">
-        <h2 className="mb-8 text-3xl font-bold text-center">
+        <h2 className="mb-8 text-3xl font-bold text-center dark:text-white">
           Book Your Session Now
         </h2>
 
         <div className="flex justify-center mb-20">
           <input
-            className="w-1/2 p-2 border border-gray-400 rounded outline-none"
+            className="w-1/2 p-2 border border-gray-400 rounded outline-none dark:bg-gray-800 dark:border-gray-600 dark:text-white"
             type="text"
-            placeholder="Search here..."
+            placeholder="Search by name, skill, or college..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
 
@@ -52,12 +72,16 @@ const AllMentors = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
-            {mentorsData.length > 0 ? (
-              mentorsData.map((mentor) => (
+            {filteredMentors.length > 0 ? (
+              filteredMentors.map((mentor) => (
                 <MentorCard key={mentor?._id} mentor={mentor} />
               ))
             ) : (
-              <p className="col-span-4 text-center">No mentors available.</p>
+              <p className="col-span-4 text-center dark:text-gray-300">
+                {normalizedSearch
+                  ? `No mentors found matching "${searchTerm}".`
+                  : "No mentors available."}
+              </p>
             )}
           </div>
         )}
