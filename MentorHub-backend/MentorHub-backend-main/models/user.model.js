@@ -77,6 +77,14 @@ const userSchema = new Schema(
           default: "",
         },
       },
+      averageRating: {
+        type: Schema.Types.Number,
+        default: 0,
+      },
+      reviewCount: {
+        type: Schema.Types.Number,
+        default: 0,
+      },
     },
   },
   { timestamps: true }
