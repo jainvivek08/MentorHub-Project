@@ -1,9 +1,9 @@
 const express = require("express");
-const reviewController = require("../controllers/review.controller");
-const asyncHandler = require("../helper/asyncHandler");
-const validate = require("../middleware/validate");
-const { protect, restrictTo } = require("../middleware/auth");
-const { createReviewValidation } = require("../validations/review.validation");
+const reviewController = require("../../controllers/review.controller");
+const asyncHandler = require("../../helper/asyncHandler");
+const validate = require("../../middleware/validate");
+const { protect, restrictTo } = require("../../middleware/auth");
+const { createReviewValidation } = require("../../validations/review.validation");
 
 const router = express.Router();
 
