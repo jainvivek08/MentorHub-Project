@@ -45,7 +45,7 @@ const Payment = () => {
           studentName: b.user?.name || "Unknown Student",
           transactionId: b._id,
           date: moment(b.dateAndTime).format("YYYY-MM-DD"),
-          amount: `₹${b.price}`,
+          amount: "₹" + b.price,
           status: b.status === "confirmed" ? "Completed" : "Pending",
         }));
 
@@ -104,10 +104,12 @@ const Payment = () => {
 
   return (
     <Dashboard>
-      <div className="p-6 bg-white rounded-lg shadow-lg">
+      <div className="p-6 bg-white rounded-lg shadow-lg dark:bg-gray-800">
         <div className="flex items-center mb-4">
           <MdOutlineCurrencyRupee className="mr-2 text-3xl text-blue-600" />
-          <h2 className="text-2xl font-bold">Payment History</h2>
+          <h2 className="text-2xl font-bold dark:text-white">
+            Payment History
+          </h2>
         </div>
         {loading ? (
           <div className="flex justify-center py-10">
