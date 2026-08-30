@@ -40,12 +40,33 @@ const generateVerificationToken = async (userId) => {
   return verificationToken;
 };
 
+const generateResetPasswordToken = async (userId) => {
+  const resetTokenExpires = moment().add(
+    config.jwt.resetPasswordExpirationMinutes,
+    "minutes"
+  );
+  const resetToken = generateToken(
+    userId,
+    resetTokenExpires,
+    config.jwt.resetPasswordSecret
+  );
+
+  return resetToken;
+};
+
 const verifyToken = async (token, secret) => {
   if (secret === "accessToken") {
     return await jwt.verify(token, config.jwt.accessSecret);
   } else if (secret === "verify") {
     return await jwt.verify(token, config.userVerification);
+  } else if (secret === "resetPassword") {
+    return await jwt.verify(token, config.jwt.resetPasswordSecret);
   }
 };
 
-module.exports = { generateAuthTokens, verifyToken, generateVerificationToken };
+module.exports = {
+  generateAuthTokens,
+  verifyToken,
+  generateVerificationToken,
+  generateResetPasswordToken,
+};
