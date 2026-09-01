@@ -2,32 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  html.dark body {
-    @apply bg-gray-950 text-gray-200;
-  }
-  /* Safety net: headings without an explicit dark: color still stay
-     readable against dark page backgrounds. Scoped to headings only —
-     paragraphs/spans are left alone so light-background cards (like
-     mentor cards) that intentionally stay white aren't affected. */
-  html.dark h1,
-  html.dark h2,
-  html.dark h3,
-  html.dark h4,
-  html.dark h5,
-  html.dark h6 {
-    @apply text-white;
-  }
-
-  /* AntD's default disabled-button styling is too low-contrast on dark
-     backgrounds; give it a visible, readable treatment site-wide. */
-  html.dark .ant-btn[disabled],
-  html.dark .ant-btn-primary[disabled] {
-    background-color: #374151 !important;
-    border-color: #4b5563 !important;
-    color: #9ca3af !important;
-  }
-}
 /* Hero section background: dark purple grid + radial glow vignette */
 .hero-grid-bg {
   position: relative;
