@@ -28,3 +28,31 @@
     color: #9ca3af !important;
   }
 }
+/* Hero section background: dark purple grid + radial glow vignette */
+.hero-grid-bg {
+  position: relative;
+  background-color: #150822;
+  background-image:
+    linear-gradient(rgba(168, 85, 247, 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(168, 85, 247, 0.16) 1px, transparent 1px),
+    radial-gradient(
+      ellipse 70% 60% at 50% 35%,
+      rgba(126, 34, 206, 0.55) 0%,
+      rgba(88, 28, 135, 0.25) 40%,
+      rgba(21, 8, 34, 0) 70%
+    );
+  background-size: 36px 36px, 36px 36px, 100% 100%;
+  background-position: center, center, center;
+}
+
+.hero-grid-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 80% 80% at 50% 50%,
+    transparent 40%,
+    #0d0414 100%
+  );
+}
