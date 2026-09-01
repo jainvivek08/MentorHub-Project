@@ -10,6 +10,7 @@ import TopMentors from "../components/TopMentors";
 import Stats from "../components/Stats";
 import FadeInSection from "../components/FadeInSection";
 import { Nav } from "../components/Nav";
+import Footer from "../components/Footer";
 import { NavLink } from "react-router-dom";
 
 const Home = () => {
@@ -27,7 +28,7 @@ const Home = () => {
       <Nav />
       <div className="bg-white dark:bg-gray-900">
         {/* Hero Section */}
-           <FadeInSection className="relative text-center hero-grid-bg overflow-hidden">
+        <FadeInSection className="relative text-center hero-grid-bg overflow-hidden">
           <img
             className="w-14 hidden md:block absolute top-10 left-[15%] animate-float"
             style={{ animationDelay: "0.2s" }}
@@ -1049,25 +1050,7 @@ const Home = () => {
         </FadeInSection>
 
         {/* Footer */}
-        <footer className="px-8 py-10 text-white bg-gray-900">
-          <div className="max-w-6xl mx-auto text-center">
-            <p>Follow us on social media for updates and mentorship tips!</p>
-            <p className="mt-4">
-              <a href="#" className="hover:text-[#00DFBD]">
-                Facebook
-              </a>{" "}
-              |{" "}
-              <a href="#" className="hover:text-[#00DFBD]">
-                Twitter
-              </a>{" "}
-              |{" "}
-              <a href="#" className="hover:text-[#00DFBD]">
-                LinkedIn
-              </a>
-            </p>
-            <p className="mt-4">© 2024 MentorHub. All Rights Reserved.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );
