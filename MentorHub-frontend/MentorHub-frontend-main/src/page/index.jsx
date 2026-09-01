@@ -11,9 +11,10 @@ import Stats from "../components/Stats";
 import FadeInSection from "../components/FadeInSection";
 import { Nav } from "../components/Nav";
 import Footer from "../components/Footer";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState({});
 
   const toggleFAQ = (index) => {
@@ -141,14 +142,14 @@ const Home = () => {
                 <div className="flex items-center">
                   <button
                     type="submit"
-                    className="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white transition duration-200 bg-purple-600 rounded shadow-md hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                    className="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white transition duration-200 bg-purple-600 rounded shadow-md hover:bg-purple-800 focus:shadow-outline focus:outline-none"
                   >
                     Get started
                   </button>
                   <a
                     href="/"
                     aria-label=""
-                    className="inline-flex items-center font-semibold text-purple-600 transition-colors duration-200 hover:text-deep-purple-800"
+                    className="inline-flex items-center font-semibold text-purple-600 transition-colors duration-200 hover:text-purple-700 dark:hover:text-purple-300"
                   >
                     Learn More
                     <svg
@@ -209,7 +210,7 @@ const Home = () => {
                 <a
                   href="/"
                   aria-label=""
-                  className="inline-flex items-center font-semibold text-purple-400 transition-colors duration-200 hover:text-deep-purple-800"
+                  className="inline-flex items-center font-semibold text-purple-400 transition-colors duration-200 hover:text-purple-700 dark:hover:text-purple-300"
                 >
                   Learn more
                 </a>
@@ -241,7 +242,7 @@ const Home = () => {
                 <a
                   href="/"
                   aria-label=""
-                  className="inline-flex items-center font-semibold text-purple-400 transition-colors duration-200 hover:text-deep-purple-800"
+                  className="inline-flex items-center font-semibold text-purple-400 transition-colors duration-200 hover:text-purple-700 dark:hover:text-purple-300"
                 >
                   Learn more
                 </a>
@@ -273,7 +274,7 @@ const Home = () => {
                 <a
                   href="/"
                   aria-label=""
-                  className="inline-flex items-center font-semibold text-purple-400 transition-colors duration-200 hover:text-deep-purple-800"
+                  className="inline-flex items-center font-semibold text-purple-400 transition-colors duration-200 hover:text-purple-700 dark:hover:text-purple-300"
                 >
                   Learn more
                 </a>
@@ -306,7 +307,7 @@ const Home = () => {
                 <a
                   href="/"
                   aria-label=""
-                  className="inline-flex items-center font-semibold text-purple-400 transition-colors duration-200 hover:text-deep-purple-800"
+                  className="inline-flex items-center font-semibold text-purple-400 transition-colors duration-200 hover:text-purple-700 dark:hover:text-purple-300"
                 >
                   Learn more
                 </a>
@@ -338,7 +339,7 @@ const Home = () => {
                 <a
                   href="/"
                   aria-label=""
-                  className="inline-flex items-center font-semibold text-purple-400 transition-colors duration-200 hover:text-deep-purple-800"
+                  className="inline-flex items-center font-semibold text-purple-400 transition-colors duration-200 hover:text-purple-700 dark:hover:text-purple-300"
                 >
                   Learn more
                 </a>
@@ -370,7 +371,7 @@ const Home = () => {
                 <a
                   href="/"
                   aria-label=""
-                  className="inline-flex items-center font-semibold text-purple-400 transition-colors duration-200 hover:text-deep-purple-800"
+                  className="inline-flex items-center font-semibold text-purple-400 transition-colors duration-200 hover:text-purple-700 dark:hover:text-purple-300"
                 >
                   Learn more
                 </a>
@@ -398,7 +399,7 @@ const Home = () => {
                 <div className="flex">
                   <div className="flex flex-col items-center mr-4">
                     <div>
-                      <div className="flex items-center justify-center w-10 h-10 border rounded-full">
+                      <div className="flex items-center justify-center w-10 h-10 border border-gray-300 dark:border-gray-600 rounded-full">
                         <svg
                           className="w-4 text-gray-600 dark:text-gray-400"
                           stroke="currentColor"
@@ -423,7 +424,7 @@ const Home = () => {
                         </svg>
                       </div>
                     </div>
-                    <div className="w-px h-full bg-gray-300" />
+                    <div className="w-px h-full bg-gray-300 dark:bg-gray-700" />
                   </div>
                   <div className="pt-1 pb-8 text-start">
                     <p className="mb-2 text-lg font-bold">Sign Up</p>
@@ -435,7 +436,7 @@ const Home = () => {
                 <div className="flex">
                   <div className="flex flex-col items-center mr-4">
                     <div>
-                      <div className="flex items-center justify-center w-10 h-10 border rounded-full">
+                      <div className="flex items-center justify-center w-10 h-10 border border-gray-300 dark:border-gray-600 rounded-full">
                         <svg
                           className="w-4 text-gray-600 dark:text-gray-400"
                           stroke="currentColor"
@@ -460,7 +461,7 @@ const Home = () => {
                         </svg>
                       </div>
                     </div>
-                    <div className="w-px h-full bg-gray-300" />
+                    <div className="w-px h-full bg-gray-300 dark:bg-gray-700" />
                   </div>
                   <div className="pt-1 pb-8 text-start">
                     <p className="mb-2 text-lg font-bold">Browse Mentors</p>
@@ -472,7 +473,7 @@ const Home = () => {
                 <div className="flex">
                   <div className="flex flex-col items-center mr-4">
                     <div>
-                      <div className="flex items-center justify-center w-10 h-10 border rounded-full">
+                      <div className="flex items-center justify-center w-10 h-10 border border-gray-300 dark:border-gray-600 rounded-full">
                         <svg
                           className="w-4 text-gray-600 dark:text-gray-400"
                           stroke="currentColor"
@@ -497,7 +498,7 @@ const Home = () => {
                         </svg>
                       </div>
                     </div>
-                    <div className="w-px h-full bg-gray-300" />
+                    <div className="w-px h-full bg-gray-300 dark:bg-gray-700" />
                   </div>
                   <div className="pt-1 pb-8 text-start">
                     <p className="mb-2 text-lg font-bold">Select Your Mentor</p>
@@ -509,7 +510,7 @@ const Home = () => {
                 <div className="flex">
                   <div className="flex flex-col items-center mr-4">
                     <div>
-                      <div className="flex items-center justify-center w-10 h-10 border rounded-full">
+                      <div className="flex items-center justify-center w-10 h-10 border border-gray-300 dark:border-gray-600 rounded-full">
                         <svg
                           className="w-4 text-gray-600 dark:text-gray-400"
                           stroke="currentColor"
@@ -534,7 +535,7 @@ const Home = () => {
                         </svg>
                       </div>
                     </div>
-                    <div className="w-px h-full bg-gray-300" />
+                    <div className="w-px h-full bg-gray-300 dark:bg-gray-700" />
                   </div>
                   <div className="pt-1 pb-8 text-start">
                     <p className="mb-2 text-lg font-bold">Book a Session</p>
@@ -546,7 +547,7 @@ const Home = () => {
                 <div className="flex">
                   <div className="flex flex-col items-center mr-4">
                     <div>
-                      <div className="flex items-center justify-center w-10 h-10 border rounded-full">
+                      <div className="flex items-center justify-center w-10 h-10 border border-gray-300 dark:border-gray-600 rounded-full">
                         <svg
                           className="w-4 text-gray-600 dark:text-gray-400"
                           stroke="currentColor"
@@ -571,7 +572,7 @@ const Home = () => {
                         </svg>
                       </div>
                     </div>
-                    <div className="w-px h-full bg-gray-300" />
+                    <div className="w-px h-full bg-gray-300 dark:bg-gray-700" />
                   </div>
                   <div className="pt-1 pb-8 text-start">
                     <p className="mb-2 text-lg font-bold">Start Learning</p>
@@ -584,7 +585,7 @@ const Home = () => {
                 <div className="flex">
                   <div className="flex flex-col items-center mr-4">
                     <div>
-                      <div className="flex items-center justify-center w-10 h-10 border rounded-full">
+                      <div className="flex items-center justify-center w-10 h-10 border border-gray-300 dark:border-gray-600 rounded-full">
                         <svg
                           className="w-6 text-gray-600 dark:text-gray-400"
                           stroke="currentColor"
@@ -604,7 +605,10 @@ const Home = () => {
                   </div>
                   <div className="pt-1">
                     <p className="mb-2 text-lg font-bold">Success</p>
-                    <p className="text-gray-700 dark:text-gray-300" />
+                    <p className="text-gray-700 dark:text-gray-300">
+                      Achieve your goals with continuous support and
+                      guidance from your mentor.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -801,7 +805,10 @@ const Home = () => {
             with a free account and explore paid mentorship options that fit
             your needs.
           </p>
-          <button className="px-6 py-3 text-white transition bg-purple-600 rounded-lg hover:bg-purple-800">
+          <button
+            onClick={() => navigate("/mentors")}
+            className="px-6 py-3 text-white transition bg-purple-600 rounded-lg hover:bg-purple-800"
+          >
             Learn More About Pricing
           </button>
         </FadeInSection>
@@ -1044,7 +1051,10 @@ const Home = () => {
             Join MentorHub today and connect with experienced professionals who
             can guide you through your journey!
           </p>
-          <button className="px-8 py-3 font-semibold text-purple-600 transition bg-white dark:bg-gray-900 rounded-lg hover:bg-gray-200">
+          <button
+            onClick={() => navigate("/signup/student")}
+            className="px-8 py-3 font-semibold text-purple-600 transition bg-white dark:bg-gray-900 rounded-lg hover:bg-gray-200"
+          >
             Get Started Now
           </button>
         </FadeInSection>
