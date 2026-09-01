@@ -6,7 +6,6 @@ import { AiOutlineDashboard } from "react-icons/ai";
 import { FiLogOut, FiSun, FiMoon } from "react-icons/fi";
 import { FaVideo } from "react-icons/fa";
 import logo from "../assets/logo-no-background.png";
-import logoBlack from "../assets/logo-black-cropped.png";
 import useUserStore from "../store/user";
 import useThemeStore from "../store/theme";
 import { removeToken } from "../helper";
@@ -62,23 +61,19 @@ export const Nav = () => {
   );
 
   return (
-    <div className="bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800">
+    <div className="bg-[#150822] border-b border-purple-900/30">
       <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
         <div className="relative flex items-center justify-between">
           <div className="flex items-center">
             <NavLink to="/" className="inline-flex items-center mr-8">
-              <img
-                className="w-48"
-                src={isDark ? logo : logoBlack}
-                alt="logo"
-              />
+              <img className="w-48" src={logo} alt="logo" />
             </NavLink>
           </div>
           <div className="flex items-center gap-4">
             <button
               onClick={toggleTheme}
               aria-label="Toggle dark mode"
-              className="flex items-center justify-center w-9 h-9 text-gray-700 dark:text-gray-200 transition-colors duration-200 border border-gray-300 dark:border-gray-600 rounded-full hover:text-black dark:hover:text-white hover:border-gray-500 dark:hover:border-white"
+              className="flex items-center justify-center w-9 h-9 text-gray-200 transition-colors duration-200 border border-gray-600 rounded-full hover:text-white hover:border-white"
             >
               {isDark ? <FiSun /> : <FiMoon />}
             </button>
@@ -87,7 +82,7 @@ export const Nav = () => {
                 <li>
                   <button
                     onClick={signUpMentorBtnClick}
-                    className="h-12 px-6 font-medium tracking-wide text-gray-800 dark:text-gray-100 transition-colors duration-200 border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-black"
+                    className="h-12 px-6 font-medium tracking-wide text-gray-100 transition-colors duration-200 border border-gray-600 rounded hover:bg-white hover:text-black"
                   >
                     Become a Mentor with Us
                   </button>
@@ -95,7 +90,7 @@ export const Nav = () => {
                 <li>
                   <button
                     onClick={signInBtnClick}
-                    className="font-medium tracking-wide text-gray-800 dark:text-gray-100 transition-colors duration-200 hover:text-[#00b89a] dark:hover:text-[#00DFBD]"
+                    className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-[#00DFBD]"
                   >
                     Sign in
                   </button>
@@ -112,8 +107,8 @@ export const Nav = () => {
             ) : (
               <div className="hidden lg:block">
                 <Dropdown overlay={menu} trigger={["hover"]}>
-                  <button className="flex items-center justify-center font-medium tracking-wide text-gray-700 dark:text-gray-300 transition-colors duration-200 border border-gray-400 dark:border-white rounded-full w-9 h-9 hover:text-black dark:hover:text-white">
-                    <FaUser className="text-gray-800 dark:text-white" />
+                  <button className="flex items-center justify-center font-medium tracking-wide text-gray-300 transition-colors duration-200 border border-white rounded-full w-9 h-9 hover:text-white">
+                    <FaUser className="text-white" />
                   </button>
                 </Dropdown>
               </div>
@@ -123,7 +118,7 @@ export const Nav = () => {
             <button
               onClick={() => setIsMobileMenuOpen((prev) => !prev)}
               aria-label="Toggle menu"
-              className="flex items-center justify-center w-9 h-9 text-gray-700 dark:text-gray-200 lg:hidden"
+              className="flex items-center justify-center w-9 h-9 text-gray-200 lg:hidden"
             >
               {isMobileMenuOpen ? (
                 <FaTimes className="text-xl" />
@@ -136,13 +131,13 @@ export const Nav = () => {
 
         {/* Mobile dropdown panel */}
         {isMobileMenuOpen && (
-          <div className="pt-4 mt-4 border-t border-gray-200 dark:border-gray-700 lg:hidden">
+          <div className="pt-4 mt-4 border-t border-gray-700 lg:hidden">
             {!user ? (
               <ul className="flex flex-col gap-3">
                 <li>
                   <button
                     onClick={signUpMentorBtnClick}
-                    className="w-full h-12 px-6 font-medium tracking-wide text-left text-gray-800 dark:text-gray-100 transition-colors duration-200 border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-black"
+                    className="w-full h-12 px-6 font-medium tracking-wide text-left text-gray-100 transition-colors duration-200 border border-gray-600 rounded hover:bg-white hover:text-black"
                   >
                     Become a Mentor with Us
                   </button>
@@ -150,7 +145,7 @@ export const Nav = () => {
                 <li>
                   <button
                     onClick={signInBtnClick}
-                    className="w-full px-2 py-2 font-medium tracking-wide text-left text-gray-800 dark:text-gray-100 transition-colors duration-200 hover:text-[#00b89a] dark:hover:text-[#00DFBD]"
+                    className="w-full px-2 py-2 font-medium tracking-wide text-left text-gray-100 transition-colors duration-200 hover:text-[#00DFBD]"
                   >
                     Sign in
                   </button>
@@ -170,7 +165,7 @@ export const Nav = () => {
                   <NavLink
                     to="/dashboard/overview"
                     onClick={closeMobileMenu}
-                    className="flex items-center gap-3 px-2 py-3 font-medium tracking-wide text-gray-800 dark:text-gray-100 hover:text-[#00b89a] dark:hover:text-[#00DFBD]"
+                    className="flex items-center gap-3 px-2 py-3 font-medium tracking-wide text-gray-100 hover:text-[#00DFBD]"
                   >
                     <AiOutlineDashboard /> Dashboard
                   </NavLink>
@@ -179,7 +174,7 @@ export const Nav = () => {
                   <NavLink
                     to="/user-bookings"
                     onClick={closeMobileMenu}
-                    className="flex items-center gap-3 px-2 py-3 font-medium tracking-wide text-gray-800 dark:text-gray-100 hover:text-[#00b89a] dark:hover:text-[#00DFBD]"
+                    className="flex items-center gap-3 px-2 py-3 font-medium tracking-wide text-gray-100 hover:text-[#00DFBD]"
                   >
                     <FaVideo /> My Sessions
                   </NavLink>
@@ -187,7 +182,7 @@ export const Nav = () => {
                 <li>
                   <button
                     onClick={onButtonClick}
-                    className="flex items-center w-full gap-3 px-2 py-3 font-medium tracking-wide text-left text-gray-800 dark:text-gray-100 hover:text-[#00b89a] dark:hover:text-[#00DFBD]"
+                    className="flex items-center w-full gap-3 px-2 py-3 font-medium tracking-wide text-left text-gray-100 hover:text-[#00DFBD]"
                   >
                     <FiLogOut /> Logout
                   </button>
