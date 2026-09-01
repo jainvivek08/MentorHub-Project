@@ -31,7 +31,7 @@
 /* Hero section background: dark purple grid + radial glow vignette */
 .hero-grid-bg {
   position: relative;
-  background-color: #150822;
+  background-color: #000000;
   background-image:
     linear-gradient(rgba(168, 85, 247, 0.10) 1px, transparent 1px),
     linear-gradient(90deg, rgba(168, 85, 247, 0.10) 1px, transparent 1px),
@@ -39,7 +39,7 @@
       ellipse 70% 60% at 50% 35%,
       rgba(126, 34, 206, 0.30) 0%,
       rgba(88, 28, 135, 0.14) 40%,
-      rgba(21, 8, 34, 0) 70%
+      rgba(0, 0, 0, 0) 70%
     );
   background-size: 36px 36px, 36px 36px, 100% 100%;
   background-position: center, center, center;
@@ -53,6 +53,6 @@
   background: radial-gradient(
     ellipse 80% 80% at 50% 50%,
     transparent 40%,
-    #0d0414 100%
+    #000000 100%
   );
 }
