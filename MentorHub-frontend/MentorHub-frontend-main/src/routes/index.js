@@ -16,6 +16,7 @@ import MentorDetails from "../page/mentorDetails";
 import Booking from "../page/booking";
 import SuccessPage from "../page/successPage";
 import BookingPage from "../page/dashboard/bookingPage";
+import Documentation from "../page/documentation";
 
 const routes = [
   {
@@ -102,6 +103,11 @@ const routes = [
     path: "/user-bookings",
     element: <BookingPage />,
     isProtected: true,
+  },
+  {
+    path: "/documentation",
+    element: <Documentation />,
+    isProtected: false,
   },
   {
     path: "*",
