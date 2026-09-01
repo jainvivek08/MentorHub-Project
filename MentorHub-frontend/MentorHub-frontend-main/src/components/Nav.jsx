@@ -3,17 +3,15 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { FaUser, FaBars, FaTimes } from "react-icons/fa";
 import { Dropdown, Menu } from "antd";
 import { AiOutlineDashboard } from "react-icons/ai";
-import { FiLogOut, FiSun, FiMoon } from "react-icons/fi";
+import { FiLogOut } from "react-icons/fi";
 import { FaVideo } from "react-icons/fa";
 import logo from "../assets/logo-no-background.png";
 import useUserStore from "../store/user";
-import useThemeStore from "../store/theme";
 import { removeToken } from "../helper";
 
 export const Nav = () => {
   const navigate = useNavigate();
   const { user, setUser } = useUserStore();
-  const { isDark, toggleTheme } = useThemeStore();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
@@ -70,13 +68,6 @@ export const Nav = () => {
             </NavLink>
           </div>
           <div className="flex items-center gap-4">
-            <button
-              onClick={toggleTheme}
-              aria-label="Toggle dark mode"
-              className="flex items-center justify-center w-9 h-9 text-gray-200 transition-colors duration-200 border border-gray-600 rounded-full hover:text-white hover:border-white"
-            >
-              {isDark ? <FiSun /> : <FiMoon />}
-            </button>
             {!user ? (
               <ul className="items-center hidden space-x-8 lg:flex">
                 <li>
