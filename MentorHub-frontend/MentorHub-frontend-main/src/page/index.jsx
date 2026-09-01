@@ -166,7 +166,7 @@ const Home = () => {
         </FadeInSection>
 
         {/* Features Section */}
-        <FadeInSection className="px-8 py-20 bg-white dark:bg-gray-900">
+        <FadeInSection className="px-8 bg-white dark:bg-gray-900">
           <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
             <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
               <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 dark:text-white sm:text-4xl md:mx-auto">
@@ -380,7 +380,7 @@ const Home = () => {
         </FadeInSection>
 
         {/* How It Works Section */}
-        <FadeInSection className="px-8 py-20 text-center bg-gray-50 dark:bg-gray-950">
+        <FadeInSection className="px-8 text-center bg-gray-50 dark:bg-gray-950">
           <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
             <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
               <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 dark:text-white sm:text-4xl md:mx-auto">
@@ -620,7 +620,7 @@ const Home = () => {
         </FadeInSection>
 
         {/* Mentor Categories Section */}
-        <FadeInSection className="px-8 py-20 bg-white dark:bg-gray-900">
+        <FadeInSection className="px-8 bg-white dark:bg-gray-900">
           <div>
             <div className="flex flex-col px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20 lg:flex-row">
               <div className="mb-5 lg:w-1/3 lg:mb-0 lg:mr-20">
@@ -669,7 +669,7 @@ const Home = () => {
                     </svg>
                   </span>
                 </div>
-                <div className="grid grid-cols-2 gap-x-10 gap-y-40 sm:grid-cols-3">
+                <div className="grid grid-cols-2 gap-x-10 gap-y-8 sm:grid-cols-3">
                   <ul className="space-y-4">
                     <li>
                       <a
