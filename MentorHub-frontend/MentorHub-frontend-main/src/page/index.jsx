@@ -27,7 +27,7 @@ const Home = () => {
       <Nav />
       <div className="bg-white dark:bg-gray-900">
         {/* Hero Section */}
-        <FadeInSection className="relative text-center bg-black">
+           <FadeInSection className="relative text-center hero-grid-bg overflow-hidden">
           <img
             className="w-14 hidden md:block absolute top-10 left-[15%] animate-float"
             style={{ animationDelay: "0.2s" }}
