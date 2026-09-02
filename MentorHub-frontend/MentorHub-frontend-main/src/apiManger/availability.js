@@ -7,7 +7,7 @@ const getMentorAvailability = async (mentorId, duration) => {
 };
 
 const getMyAvailability = async () => {
-  return await AxiosInstances.get(`availability`);
+  return await AxiosInstances.get(`availability`, { skipErrorToast: true });
 };
 
 const saveAvailability = async (data) => {
