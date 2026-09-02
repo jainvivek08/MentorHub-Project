@@ -821,11 +821,11 @@ const Home = () => {
             <div className="space-y-4">
               <div className="pb-4 border-b border-gray-300 dark:border-gray-700">
                 <button
-                  className="flex items-center justify-between w-full text-lg font-medium text-gray-900 dark:text-white transition-colors hover:text-purple-600"
+                  className="flex items-center justify-between w-full gap-4 text-lg font-medium text-left text-gray-900 dark:text-white transition-colors hover:text-purple-600"
                   onClick={() => toggleFAQ(1)}
                 >
                   What is MentorHub?
-                  <span className="ml-4 transition-transform transform rotate-0 group-hover:rotate-180">
+                  <span className="ml-4 transition-transform transform rotate-0 shrink-0 group-hover:rotate-180">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="w-6 h-6"
@@ -858,11 +858,11 @@ const Home = () => {
 
               <div className="pb-4 border-b border-gray-300 dark:border-gray-700">
                 <button
-                  className="flex items-center justify-between w-full text-lg font-medium text-gray-900 dark:text-white transition-colors hover:text-purple-600"
+                  className="flex items-center justify-between w-full gap-4 text-lg font-medium text-left text-gray-900 dark:text-white transition-colors hover:text-purple-600"
                   onClick={() => toggleFAQ(2)}
                 >
                   How do I sign up as a mentor?
-                  <span className="ml-4 transition-transform transform rotate-0 group-hover:rotate-180">
+                  <span className="ml-4 transition-transform transform rotate-0 shrink-0 group-hover:rotate-180">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="w-6 h-6"
@@ -895,11 +895,11 @@ const Home = () => {
 
               <div className="pb-4 border-b border-gray-300 dark:border-gray-700">
                 <button
-                  className="flex items-center justify-between w-full text-lg font-medium text-gray-900 dark:text-white transition-colors hover:text-purple-600"
+                  className="flex items-center justify-between w-full gap-4 text-lg font-medium text-left text-gray-900 dark:text-white transition-colors hover:text-purple-600"
                   onClick={() => toggleFAQ(3)}
                 >
                   Can I choose my mentor?
-                  <span className="ml-4 transition-transform transform rotate-0 group-hover:rotate-180">
+                  <span className="ml-4 transition-transform transform rotate-0 shrink-0 group-hover:rotate-180">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="w-6 h-6"
@@ -931,11 +931,11 @@ const Home = () => {
 
               <div className="pb-4 border-b border-gray-300 dark:border-gray-700">
                 <button
-                  className="flex items-center justify-between w-full text-lg font-medium text-gray-900 dark:text-white transition-colors hover:text-purple-600"
+                  className="flex items-center justify-between w-full gap-4 text-lg font-medium text-left text-gray-900 dark:text-white transition-colors hover:text-purple-600"
                   onClick={() => toggleFAQ(4)}
                 >
                   What are the costs involved?
-                  <span className="ml-4 transition-transform transform rotate-0 group-hover:rotate-180">
+                  <span className="ml-4 transition-transform transform rotate-0 shrink-0 group-hover:rotate-180">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="w-6 h-6"
@@ -967,11 +967,11 @@ const Home = () => {
 
               <div className="pb-4 border-b border-gray-300 dark:border-gray-700">
                 <button
-                  className="flex items-center justify-between w-full text-lg font-medium text-gray-900 dark:text-white transition-colors hover:text-purple-600"
+                  className="flex items-center justify-between w-full gap-4 text-lg font-medium text-left text-gray-900 dark:text-white transition-colors hover:text-purple-600"
                   onClick={() => toggleFAQ(5)}
                 >
                   How does the mentoring process work?
-                  <span className="ml-4 transition-transform transform rotate-0 group-hover:rotate-180">
+                  <span className="ml-4 transition-transform transform rotate-0 shrink-0 group-hover:rotate-180">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="w-6 h-6"
@@ -1003,11 +1003,11 @@ const Home = () => {
 
               <div className="pb-4 border-b border-gray-300 dark:border-gray-700">
                 <button
-                  className="flex items-center justify-between w-full text-lg font-medium text-gray-900 dark:text-white transition-colors hover:text-purple-600"
+                  className="flex items-center justify-between w-full gap-4 text-lg font-medium text-left text-gray-900 dark:text-white transition-colors hover:text-purple-600"
                   onClick={() => toggleFAQ(6)}
                 >
                   Is there a support system if I face issues?
-                  <span className="ml-4 transition-transform transform rotate-0 group-hover:rotate-180">
+                  <span className="ml-4 transition-transform transform rotate-0 shrink-0 group-hover:rotate-180">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="w-6 h-6"
