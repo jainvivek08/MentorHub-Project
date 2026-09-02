@@ -1,8 +1,39 @@
 const ServiceModel = require("../models/service.model");
 const UserModel = require("../models/user.model");
 
-const getAllMentors = async () => {
-  return await UserModel.find({ role: "mentor" });
+const getAllMentors = async ({ search, tag, page = 1, limit = 12 } = {}) => {
+  const query = { role: "mentor" };
+
+  if (search) {
+    const regex = { $regex: search, $options: "i" };
+    query.$or = [
+      { name: regex },
+      { username: regex },
+      { "profile.title": regex },
+      { "profile.college": regex },
+      { "profile.tags": regex },
+    ];
+  }
+
+  if (tag) {
+    query["profile.tags"] = { $in: [tag] };
+  }
+
+  const pageNum = Math.max(Number(page) || 1, 1);
+  const limitNum = Math.min(Math.max(Number(limit) || 12, 1), 50);
+  const skip = (pageNum - 1) * limitNum;
+
+  const [mentors, total] = await Promise.all([
+    UserModel.find(query).skip(skip).limit(limitNum).sort({ createdAt: -1 }),
+    UserModel.countDocuments(query),
+  ]);
+
+  return {
+    mentors,
+    total,
+    page: pageNum,
+    totalPages: Math.max(Math.ceil(total / limitNum), 1),
+  };
 };
 
 const getMentorById = async (id) => {
