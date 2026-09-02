@@ -25,19 +25,25 @@ let AxiosInstances; // Declare a variable to hold the axios instance
   AxiosInstances.interceptors.response.use(
     (response) => response, // If the response is successful, return it
     (error) => {
+      const skipToast = error.config?.skipErrorToast;
+
       // If the response indicates a failure
-      if (error.response?.data.success === "false") {
-        const message = error.response.data.message; // Get the error message
-        message ? toast.error(message) : toast.error("Something went wrong"); // Display the error message
-        if (error.response.status === 401) {
-          // If the error status is 401 (Unauthorized)
-          removeToken(); // Remove the token from storage
-          sessionStorage.removeItem(USER_STORE_PERSIST); // Remove user data from session storage
-          window.location.href = "/signin"; // Redirect to the signin page
+      if (!skipToast) {
+        if (error.response?.data.success === "false") {
+          const message = error.response.data.message; // Get the error message
+          message ? toast.error(message) : toast.error("Something went wrong"); // Display the error message
+        } else {
+          toast.error("Something went wrong"); // Display a generic error message
         }
-      } else {
-        toast.error("Something went wrong"); // Display a generic error message
       }
+
+      if (error.response?.status === 401) {
+        // If the error status is 401 (Unauthorized)
+        removeToken(); // Remove the token from storage
+        sessionStorage.removeItem(USER_STORE_PERSIST); // Remove user data from session storage
+        window.location.href = "/signin"; // Redirect to the signin page
+      }
+
       throw error; // Throw the error to be handled by the calling function
     }
   );
