@@ -21,11 +21,13 @@ const getMentorInfoByUsername = async (req, res, next) => {
 };
 
 const getAllMentors = async (req, res, next) => {
-  const mentors = await mentorService.getAllMentors();
+  const { search, tag, page, limit } = req.query;
+
+  const result = await mentorService.getAllMentors({ search, tag, page, limit });
 
   res.status(httpStatus.ok).json({
     success: true,
-    mentors,
+    ...result,
   });
 };
 
