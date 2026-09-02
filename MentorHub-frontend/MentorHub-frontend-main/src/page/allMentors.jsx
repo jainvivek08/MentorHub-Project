@@ -10,43 +10,43 @@ const AllMentors = () => {
   const { mentorsData, setMentorsData } = useMentorStore();
   const [loading, setLoading] = useState(false); // State for tracking loading status
   const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-  // Fetch mentors when the component mounts if mentorsData is empty
+  // Debounce the search input so we don't hit the API on every keystroke
   useEffect(() => {
-    const fetchAllMentors = async () => {
-      setLoading(true); // Start loading
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchTerm.trim());
+      setPage(1); // reset to first page whenever the search term changes
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
+
+  // Fetch mentors from the server whenever the search term or page changes
+  useEffect(() => {
+    const fetchMentors = async () => {
+      setLoading(true);
       try {
-        const response = await mentorAPI.getAllMentors();
-        const allMentors = response?.data?.mentors || [];
-        setMentorsData(allMentors); // Store all mentors in the Zustand store
+        const response = await mentorAPI.getAllMentors({
+          search: debouncedSearch || undefined,
+          page,
+          limit: 12,
+        });
+        setMentorsData(response?.data?.mentors || []);
+        setTotalPages(response?.data?.totalPages || 1);
       } catch (error) {
         console.error("Error fetching mentors:", error);
       } finally {
-        setLoading(false); // Stop loading once the request completes
+        setLoading(false);
       }
     };
 
-    if (mentorsData.length === 0) {
-      fetchAllMentors();
-    }
-  }, [mentorsData, setMentorsData]);
+    fetchMentors();
+  }, [debouncedSearch, page, setMentorsData]);
 
-  const normalizedSearch = searchTerm.trim().toLowerCase();
-
-  const filteredMentors = mentorsData.filter((mentor) => {
-    if (!normalizedSearch) return true;
-
-    const haystacks = [
-      mentor?.name,
-      mentor?.profile?.title,
-      mentor?.profile?.college,
-      ...(mentor?.profile?.tags || []),
-    ];
-
-    return haystacks.some((value) =>
-      value?.toLowerCase().includes(normalizedSearch)
-    );
-  });
+  const filteredMentors = mentorsData;
 
   return (
     <Layout>
@@ -78,11 +78,33 @@ const AllMentors = () => {
               ))
             ) : (
               <p className="col-span-4 text-center dark:text-gray-300">
-                {normalizedSearch
+                {debouncedSearch
                   ? `No mentors found matching "${searchTerm}".`
                   : "No mentors available."}
               </p>
             )}
+          </div>
+        )}
+
+        {!loading && totalPages > 1 && (
+          <div className="flex items-center justify-center gap-4 mt-10">
+            <button
+              className="px-4 py-2 border rounded disabled:opacity-40 dark:text-white dark:border-gray-600"
+              onClick={() => setPage((p) => Math.max(p - 1, 1))}
+              disabled={page === 1}
+            >
+              Previous
+            </button>
+            <span className="dark:text-white">
+              Page {page} of {totalPages}
+            </span>
+            <button
+              className="px-4 py-2 border rounded disabled:opacity-40 dark:text-white dark:border-gray-600"
+              onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
+              disabled={page === totalPages}
+            >
+              Next
+            </button>
           </div>
         )}
       </div>
