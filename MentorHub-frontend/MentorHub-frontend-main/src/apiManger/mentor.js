@@ -1,8 +1,8 @@
 import AxiosInstances from ".";
 
 // Define the functions
-const getAllMentors = () => {
-  return AxiosInstances.get("/mentor");
+const getAllMentors = (params = {}) => {
+  return AxiosInstances.get("/mentor", { params });
 };
 
 const getMentorByUsername = (userName) => {
