@@ -11,9 +11,10 @@ import Stats from "../components/Stats";
 import FadeInSection from "../components/FadeInSection";
 import { Nav } from "../components/Nav";
 import Footer from "../components/Footer";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState({});
 
   const toggleFAQ = (index) => {
@@ -26,7 +27,7 @@ const Home = () => {
   return (
     <>
       <Nav />
-      <div className="bg-white dark:bg-gray-900">
+      <div className="overflow-x-hidden bg-white dark:bg-gray-900">
         {/* Hero Section */}
         <FadeInSection className="relative text-center hero-grid-bg overflow-hidden">
           <img
@@ -140,7 +141,8 @@ const Home = () => {
                 </p>
                 <div className="flex items-center">
                   <button
-                    type="submit"
+                    type="button"
+                    onClick={() => navigate("/signup/student")}
                     className="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white transition duration-200 bg-purple-600 rounded shadow-md hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
                   >
                     Get started
@@ -795,13 +797,16 @@ const Home = () => {
 
         {/* Pricing Section */}
         <FadeInSection className="px-8 py-20 text-center bg-white dark:bg-gray-900">
-          <h2 className="mb-12 text-4xl font-bold">Affordable Pricing</h2>
+          <h2 className="mb-12 text-3xl font-bold sm:text-4xl">Affordable Pricing</h2>
           <p className="max-w-4xl mx-auto mb-6 text-xl text-gray-700 dark:text-gray-300">
             We offer affordable plans for both students and mentors. Get started
             with a free account and explore paid mentorship options that fit
             your needs.
           </p>
-          <button className="px-6 py-3 text-white transition bg-purple-600 rounded-lg hover:bg-purple-800">
+          <button
+            onClick={() => navigate("/mentors")}
+            className="px-6 py-3 text-white transition bg-purple-600 rounded-lg hover:bg-purple-800"
+          >
             Learn More About Pricing
           </button>
         </FadeInSection>
@@ -809,7 +814,7 @@ const Home = () => {
         {/* FAQs Section */}
         <FadeInSection className="px-6 py-16 bg-white dark:bg-gray-900">
           <div className="max-w-screen-lg mx-auto">
-            <h2 className="mb-10 text-4xl font-bold text-center text-gray-900 dark:text-white">
+            <h2 className="mb-10 text-3xl font-bold text-center text-gray-900 dark:text-white sm:text-4xl">
               Frequently Asked Questions
             </h2>
 
@@ -1037,14 +1042,17 @@ const Home = () => {
 
         {/* Call to Action */}
         <FadeInSection className="px-8 py-20 text-center text-white bg-purple-600">
-          <h2 className="mb-6 text-4xl font-bold">
+          <h2 className="mb-6 text-3xl font-bold sm:text-4xl">
             Ready to Find Your Mentor?
           </h2>
           <p className="mb-8 text-xl">
             Join MentorHub today and connect with experienced professionals who
             can guide you through your journey!
           </p>
-          <button className="px-8 py-3 font-semibold text-purple-600 transition bg-white dark:bg-gray-900 rounded-lg hover:bg-gray-200">
+          <button
+            onClick={() => navigate("/signup/student")}
+            className="px-8 py-3 font-semibold text-purple-600 transition bg-white dark:bg-gray-900 rounded-lg hover:bg-gray-200"
+          >
             Get Started Now
           </button>
         </FadeInSection>
