@@ -12,6 +12,7 @@ const navItemClass = ({ isActive }) =>
 const Sidebar = () => {
   const { user } = useUserStore();
   const isMentor = user?.role === "mentor";
+  const isAdmin = user?.role === "admin";
 
   return (
     <aside className="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-white border-r dark:bg-gray-900 dark:border-gray-700">
@@ -189,7 +190,7 @@ const Sidebar = () => {
                 <span className="mx-4 font-medium">Bookings</span>
               </NavLink>
             </>
-          ) : (
+          ) : !isAdmin ? (
             <>
               <NavLink to="/user-bookings" className={navItemClass}>
                 <svg
@@ -216,6 +217,26 @@ const Sidebar = () => {
                 <span className="mx-4 font-medium">My Sessions</span>
               </NavLink>
             </>
+          ) : null}
+
+          {isAdmin && (
+            <NavLink to="/dashboard/admin/mentors" className={navItemClass}>
+              <svg
+                className="w-5 h-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9 12L11 14L15 10M20.618 5.984C17.4571 6.13673 14.4165 4.75355 12.4649 2.28479C12.2426 2.00473 11.7574 2.00473 11.5351 2.28479C9.58354 4.75355 6.54293 6.13673 3.38197 5.984C3.02976 6.86217 3 7.77987 3 8.7C3 15.4 7.5 20.4 12 22C16.5 20.4 21 15.4 21 8.7C21 7.77987 20.9702 6.86217 20.618 5.984Z"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <span className="mx-4 font-medium">Mentor Approvals</span>
+            </NavLink>
           )}
 
           <NavLink to="/dashboard/profile" className={navItemClass}>
