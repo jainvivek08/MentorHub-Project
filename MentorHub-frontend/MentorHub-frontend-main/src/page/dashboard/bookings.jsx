@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button, Spin } from "antd";
-import { FaVideo } from "react-icons/fa";
+import { FaVideo, FaComments } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import moment from "moment";
 import booking from "../../apiManger/booking";
 import Dashboard from "./dashboard";
@@ -74,6 +75,18 @@ const Booking = () => {
           <span className="text-sm text-gray-400">Awaiting payment</span>
         ) : (
           <span className="text-sm text-gray-400">Link not ready</span>
+        ),
+    },
+    {
+      title: "Chat",
+      key: "chat",
+      render: (text, record) =>
+        record.status === "confirmed" ? (
+          <Link to={`/booking/${record._id}/chat`}>
+            <Button icon={<FaComments />}>Chat</Button>
+          </Link>
+        ) : (
+          <span className="text-sm text-gray-400">-</span>
         ),
     },
   ];
