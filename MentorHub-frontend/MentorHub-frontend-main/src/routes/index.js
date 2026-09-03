@@ -17,6 +17,7 @@ import Booking from "../page/booking";
 import SuccessPage from "../page/successPage";
 import BookingPage from "../page/dashboard/bookingPage";
 import Documentation from "../page/documentation";
+import AdminMentors from "../page/dashboard/adminMentors";
 
 const routes = [
   {
@@ -103,6 +104,12 @@ const routes = [
     path: "/user-bookings",
     element: <BookingPage />,
     isProtected: true,
+  },
+  {
+    path: "/dashboard/admin/mentors",
+    element: <AdminMentors />,
+    isProtected: true,
+    roles: ["admin"],
   },
   {
     path: "/documentation",
