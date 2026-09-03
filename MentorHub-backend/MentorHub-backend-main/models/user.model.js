@@ -35,8 +35,15 @@ const userSchema = new Schema(
     },
     role: {
       type: Schema.Types.String,
-      enum: ["mentor", "student"],
+      enum: ["mentor", "student", "admin"],
       default: null, // Initially null, can be set later
+    },
+    // Mentors must be approved by an admin before they show up publicly.
+    // Students/admins don't need approval, so they're auto-approved.
+    approvalStatus: {
+      type: Schema.Types.String,
+      enum: ["pending", "approved", "rejected"],
+      default: "approved",
     },
     profile: {
       tags: {
