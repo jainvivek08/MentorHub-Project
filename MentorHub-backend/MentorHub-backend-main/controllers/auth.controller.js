@@ -5,6 +5,16 @@ const emailService = require("../services/email.service");
 const signUp = async (req, res) => {
   const { name, email, password, username, role } = req.body;
 
+  // Public signup can only create mentor/student accounts.
+  // Admin accounts must be created directly in the database/seed script,
+  // never through this open endpoint.
+  const allowedRoles = ["mentor", "student"];
+  if (!allowedRoles.includes(role)) {
+    return res.status(httpStatus.badRequest).json({
+      message: "Role must be either 'mentor' or 'student'",
+    });
+  }
+
   const user = await userService.createUser({
     name,
     email,
