@@ -6,7 +6,8 @@ const tokenService = require("./token.service");
 const emailService = require("./email.service");
 
 const createUser = async (data) => {
-  return await UserModel.create(data);
+  const approvalStatus = data.role === "mentor" ? "pending" : "approved";
+  return await UserModel.create({ ...data, approvalStatus });
 };
 
 const loginUserWithEmailAndPassword = async (email, password) => {
