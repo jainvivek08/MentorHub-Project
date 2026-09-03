@@ -18,6 +18,7 @@ import SuccessPage from "../page/successPage";
 import BookingPage from "../page/dashboard/bookingPage";
 import Documentation from "../page/documentation";
 import AdminMentors from "../page/dashboard/adminMentors";
+import Chat from "../page/chat";
 
 const routes = [
   {
@@ -110,6 +111,11 @@ const routes = [
     element: <AdminMentors />,
     isProtected: true,
     roles: ["admin"],
+  },
+  {
+    path: "/booking/:bookingId/chat",
+    element: <Chat />,
+    isProtected: true,
   },
   {
     path: "/documentation",
