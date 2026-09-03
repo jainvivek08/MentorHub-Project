@@ -12,6 +12,7 @@ const bookingRoute = require("./booking.route");
 const reviewRoute = require("./review.route");
 const webhookRoute = require("./webhook.route");
 const adminRoute = require("./admin.route");
+const messageRoute = require("./message.route");
 
 const Routes = [
   {
@@ -53,6 +54,10 @@ const Routes = [
   {
     path: "/admin",
     route: adminRoute,
+  },
+  {
+    path: "/message",
+    route: messageRoute,
   },
 ];
 
