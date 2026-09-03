@@ -33,7 +33,7 @@ function App() {
 
 const RouteElement = ({ route }) => {
   return route.isProtected ? (
-    <ProtectedRoute>{route.element}</ProtectedRoute>
+    <ProtectedRoute roles={route.roles}>{route.element}</ProtectedRoute>
   ) : (
     <> {route.element}</>
   );
