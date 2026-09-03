@@ -11,6 +11,7 @@ const mentorRoute = require("./mentor.route");
 const bookingRoute = require("./booking.route");
 const reviewRoute = require("./review.route");
 const webhookRoute = require("./webhook.route");
+const adminRoute = require("./admin.route");
 
 const Routes = [
   {
@@ -48,6 +49,10 @@ const Routes = [
   {
     path: "/webhook",
     route: webhookRoute,
+  },
+  {
+    path: "/admin",
+    route: adminRoute,
   },
 ];
 
