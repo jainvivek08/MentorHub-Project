@@ -61,6 +61,20 @@ const Overview = () => {
             : "Here's what's happening with your mentorship sessions."}
         </p>
 
+        {isMentor && user?.approvalStatus === "pending" && (
+          <div className="p-4 mb-6 text-sm font-medium text-orange-700 border border-orange-200 rounded-lg bg-orange-50 dark:bg-orange-950 dark:text-orange-300 dark:border-orange-900">
+            Your mentor profile is awaiting admin approval. You won't appear
+            in mentor search results until it's approved.
+          </div>
+        )}
+
+        {isMentor && user?.approvalStatus === "rejected" && (
+          <div className="p-4 mb-6 text-sm font-medium text-red-700 border border-red-200 rounded-lg bg-red-50 dark:bg-red-950 dark:text-red-300 dark:border-red-900">
+            Your mentor application was not approved. Please contact support
+            for more details.
+          </div>
+        )}
+
         {loading ? (
           <div className="flex justify-center py-16">
             <Spin size="large" />
