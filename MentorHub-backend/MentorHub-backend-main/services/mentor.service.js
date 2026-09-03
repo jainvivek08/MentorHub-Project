@@ -2,7 +2,12 @@ const ServiceModel = require("../models/service.model");
 const UserModel = require("../models/user.model");
 
 const getAllMentors = async ({ search, tag, page = 1, limit = 12 } = {}) => {
-  const query = { role: "mentor", approvalStatus: "approved" };
+  // Treat missing approvalStatus (mentors created before this field existed)
+  // as approved - only explicitly pending/rejected mentors are hidden.
+  const query = {
+    role: "mentor",
+    approvalStatus: { $nin: ["pending", "rejected"] },
+  };
 
   if (search) {
     const regex = { $regex: search, $options: "i" };
@@ -37,11 +42,19 @@ const getAllMentors = async ({ search, tag, page = 1, limit = 12 } = {}) => {
 };
 
 const getMentorById = async (id) => {
-  return await UserModel.findOne({ _id: id, role: "mentor", approvalStatus: "approved" });
+  return await UserModel.findOne({
+    _id: id,
+    role: "mentor",
+    approvalStatus: { $nin: ["pending", "rejected"] },
+  });
 };
 
 const getMentorByUsername = async (username) => {
-  return await UserModel.findOne({ username, role: "mentor", approvalStatus: "approved" });
+  return await UserModel.findOne({
+    username,
+    role: "mentor",
+    approvalStatus: { $nin: ["pending", "rejected"] },
+  });
 };
 
 const getMentorServices = async (id) => {
