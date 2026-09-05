@@ -8,6 +8,7 @@ import { FaVideo } from "react-icons/fa";
 import logo from "../assets/logo-no-background.png";
 import useUserStore from "../store/user";
 import { removeToken } from "../helper";
+import NotificationBell from "./NotificationBell";
 
 export const Nav = () => {
   const navigate = useNavigate();
@@ -96,7 +97,8 @@ export const Nav = () => {
                 </li>
               </ul>
             ) : (
-              <div className="hidden lg:block">
+              <div className="items-center hidden gap-3 lg:flex">
+                <NotificationBell dark />
                 <Dropdown overlay={menu} trigger={["hover"]}>
                   <button className="flex items-center justify-center font-medium tracking-wide text-gray-300 transition-colors duration-200 border border-white rounded-full w-9 h-9 hover:text-white">
                     <FaUser className="text-white" />
