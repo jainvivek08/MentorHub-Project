@@ -3,6 +3,7 @@ const bookingService = require("../services/booking.service");
 const httpStatus = require("../util/httpStatus");
 const serviceService = require("../services/service.service");
 const config = require("../config");
+const notificationService = require("../services/notification.service");
 
 const initiateBookingAndPayment = async (req, res, next) => {
   const { dateAndTime, serviceId } = req.body;
@@ -16,6 +17,13 @@ const initiateBookingAndPayment = async (req, res, next) => {
     dateAndTime,
     service: serviceId,
     price: service.price,
+  });
+
+  await notificationService.createNotification({
+    userId: service.mentor,
+    type: "booking_created",
+    message: `${req.user.name} requested a session: ${service.name}`,
+    link: "/dashboard/bookings",
   });
 
   // Initialize Razorpay instance
