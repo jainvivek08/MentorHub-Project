@@ -13,6 +13,7 @@ const reviewRoute = require("./review.route");
 const webhookRoute = require("./webhook.route");
 const adminRoute = require("./admin.route");
 const messageRoute = require("./message.route");
+const notificationRoute = require("./notification.route");
 
 const Routes = [
   {
@@ -58,6 +59,10 @@ const Routes = [
   {
     path: "/message",
     route: messageRoute,
+  },
+  {
+    path: "/notification",
+    route: notificationRoute,
   },
 ];
 
