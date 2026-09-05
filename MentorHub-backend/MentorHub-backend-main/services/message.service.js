@@ -1,52 +1,59 @@
-const MessageModel = require("../models/message.model");
-const BookingModel = require("../models/booking.model");
-const ApiError = require("../helper/apiError");
+const razorpay = require("razorpay");
+const config = require("../config");
 const httpStatus = require("../util/httpStatus");
+const bookingService = require("../services/booking.service");
+const zoomService = require("../services/zoom.service");
+const emailService = require("../services/email.service");
+const notificationService = require("../services/notification.service");
+const moment = require("moment");
 
-// A user may only chat on a booking they're part of - either as the
-// student who booked it, or the mentor who owns the service.
-const assertBookingAccess = async (bookingId, userId) => {
-  const booking = await BookingModel.findById(bookingId);
+const handleRazorpayWebhook = async (req, res, next) => {
+  const { event } = req.body;
+  if (event === "order.paid") {
+    const bookingId = req.body.payload.payment.entity.notes.bookingId;
 
-  if (!booking) {
-    throw new ApiError(httpStatus.notFound, "Booking not found");
-  }
+    const booking = await bookingService.getBookingById(bookingId);
 
-  const isParticipant =
-    booking.user.toString() === userId.toString() ||
-    booking.mentor.toString() === userId.toString();
-
-  if (!isParticipant) {
-    throw new ApiError(
-      httpStatus.forbidden,
-      "You do not have access to this conversation"
+    const zoomMeeting = await zoomService.createScheduledZoomMeeting(
+      booking.dateAndTime,
+      booking.service.duration
     );
+
+    await bookingService.updateBookingById(bookingId, {
+  meetingLink: zoomMeeting.joinUrl,
+  startUrl: zoomMeeting.startUrl,
+  status: "confirmed",
+});
+
+await emailService.sendConfirmationMail(
+  booking.user.email,
+  booking.user.name,
+  zoomMeeting.joinUrl,
+  moment(booking.dateAndTime).format("DD-MM-YYYY"),
+  moment(booking.dateAndTime).format("HH:mm")
+);
+
+const sessionTime = moment(booking.dateAndTime).format("DD MMM, hh:mm A");
+
+await notificationService.createNotification({
+  userId: booking.user._id,
+  type: "booking_confirmed",
+  message: `Your session on ${sessionTime} is confirmed`,
+  link: "/user-bookings",
+});
+
+await notificationService.createNotification({
+  userId: booking.mentor,
+  type: "booking_confirmed",
+  message: `A session on ${sessionTime} was confirmed`,
+  link: "/dashboard/bookings",
+});
   }
-
-  return booking;
-};
-
-const getMessages = async (bookingId, userId) => {
-  await assertBookingAccess(bookingId, userId);
-
-  return await MessageModel.find({ booking: bookingId })
-    .populate("sender", "name username role")
-    .sort({ createdAt: 1 });
-};
-
-const sendMessage = async (bookingId, userId, text) => {
-  await assertBookingAccess(bookingId, userId);
-
-  const message = await MessageModel.create({
-    booking: bookingId,
-    sender: userId,
-    text,
+  return res.status(httpStatus.ok).json({
+    message: "Webhook received",
   });
-
-  return await message.populate("sender", "name username role");
 };
 
 module.exports = {
-  getMessages,
-  sendMessage,
+  handleRazorpayWebhook,
 };
