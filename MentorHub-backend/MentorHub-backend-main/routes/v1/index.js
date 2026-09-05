@@ -14,6 +14,7 @@ const webhookRoute = require("./webhook.route");
 const adminRoute = require("./admin.route");
 const messageRoute = require("./message.route");
 const notificationRoute = require("./notification.route");
+const chatbotRoute = require("./chatbot.route");
 
 const Routes = [
   {
@@ -63,6 +64,10 @@ const Routes = [
   {
     path: "/notification",
     route: notificationRoute,
+  },
+  {
+    path: "/chatbot",
+    route: chatbotRoute,
   },
 ];
 

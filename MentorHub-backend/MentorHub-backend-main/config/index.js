@@ -39,4 +39,8 @@ module.exports = {
     clientId: process.env.ZOOM_CLIENT_ID,
     clientSecret: process.env.ZOOM_CLIENT_SECRET,
   },
+  // AI chatbot — uses Groq's free-tier, OpenAI-compatible chat completions API
+  groq: {
+    apiKey: process.env.GROQ_API_KEY,
+  },
 };

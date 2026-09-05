@@ -1,6 +1,7 @@
 import React from "react";
 import Footer from "./Footer"; // Assuming Footer is your bottom footer component
 import { Nav } from "./Nav";
+import ChatbotWidget from "./ChatbotWidget";
 
 const Layout = ({ children }) => {
   return (
@@ -17,6 +18,9 @@ const Layout = ({ children }) => {
       <footer>
         <Footer />
       </footer>
+
+      {/* Floating AI chatbot, shows on every page that uses this Layout */}
+      <ChatbotWidget />
     </div>
   );
 };

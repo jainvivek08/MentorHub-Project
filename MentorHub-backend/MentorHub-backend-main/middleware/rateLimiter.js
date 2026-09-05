@@ -26,7 +26,21 @@ const authLimiter = rateLimit({
   },
 });
 
+// Chatbot calls hit an external LLM API, so keep this tighter than
+// generalLimiter to avoid burning through Groq's free-tier limits.
+const chatbotLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 30,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    message: "Too many chat messages. Please slow down and try again shortly.",
+  },
+});
+
 module.exports = {
   generalLimiter,
   authLimiter,
+  chatbotLimiter,
 };
