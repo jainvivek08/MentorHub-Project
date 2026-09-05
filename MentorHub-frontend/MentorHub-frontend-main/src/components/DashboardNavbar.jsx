@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { removeToken } from "../helper";
 import useUserStore from "../store/user";
 import { FiLogOut } from "react-icons/fi";
+import NotificationBell from "./NotificationBell";
 
 const DashboardNavbar = () => {
   const navigate = useNavigate();
@@ -33,6 +34,7 @@ const DashboardNavbar = () => {
               </div>
             </div>
             <div className="flex items-center gap-2">
+              <NotificationBell />
               <button
                 onClick={onButtonClick}
                 className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 transition-colors duration-300 transform border border-red-200 rounded-lg hover:bg-red-200 hover:text-gray-700 "
