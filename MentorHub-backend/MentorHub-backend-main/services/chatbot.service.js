@@ -108,7 +108,7 @@ const sendMessage = async (message, history = []) => {
         Authorization: `Bearer ${config.groq.apiKey}`,
       },
       body: JSON.stringify({
-        model: "llama-3.3-70b-versatile",
+        model: "openai/gpt-oss-120b",
         max_tokens: 500,
         messages,
       }),
