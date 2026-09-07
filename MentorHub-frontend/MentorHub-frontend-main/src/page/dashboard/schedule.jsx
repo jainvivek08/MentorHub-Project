@@ -94,9 +94,31 @@ const Schedule = () => {
   const saveToBackend = async (updatedSpecific, updatedUnavailable) => {
     setLoading(true);
     try {
+      // Mongo/Mongoose adds an _id to every array subdocument, which comes
+      // back when we fetch existing data. Joi validation rejects unknown
+      // fields, so strip _id (and anything except startTime/endTime) before
+      // sending this back to the server.
+      const cleanedWeekly = Object.fromEntries(
+        Object.entries(weeklyAvailability).map(([day, slots]) => [
+          day,
+          (slots || []).map(({ startTime, endTime }) => ({
+            startTime,
+            endTime,
+          })),
+        ])
+      );
+
+      const cleanedSpecific = updatedSpecific.map(({ date, slots }) => ({
+        date,
+        slots: (slots || []).map(({ startTime, endTime }) => ({
+          startTime,
+          endTime,
+        })),
+      }));
+
       await availabilityApi.saveAvailability({
-        weeklyAvailability,
-        specificAvailability: updatedSpecific,
+        weeklyAvailability: cleanedWeekly,
+        specificAvailability: cleanedSpecific,
         unavailableDates: updatedUnavailable,
       });
       message.success("Availability saved successfully!");
