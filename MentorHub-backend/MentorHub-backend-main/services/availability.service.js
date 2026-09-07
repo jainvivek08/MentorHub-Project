@@ -79,9 +79,18 @@ const getMentorAvailabilityForNext14Days = async (
       return slots;
     };
 
-    // Get all bookings for the next 14 days for the mentor
+    // Get all bookings for the next 14 days for the mentor.
+    // IMPORTANT: only "confirmed" (i.e. paid) bookings should block a slot.
+    // A booking is created with status "pending" the moment a user clicks
+    // "Book Session", *before* payment is completed - it only becomes
+    // "confirmed" once Razorpay's webhook fires. If we don't filter by
+    // status here, an abandoned/incomplete checkout (payment never
+    // finished, or the webhook never reached the server, e.g. in local
+    // dev) permanently blocks that date/time for every future customer,
+    // even though the slot was never actually paid for.
     const bookings = await BookingModel.find({
       mentor: userId,
+      status: "confirmed",
       dateAndTime: {
         $gte: moment().startOf("day").toDate(),
         $lte: moment().add(14, "days").endOf("day").toDate(),
