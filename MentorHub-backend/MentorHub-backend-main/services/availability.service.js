@@ -3,6 +3,7 @@ const ApiError = require("../helper/apiError");
 const httpStatus = require("../util/httpStatus");
 const moment = require("moment");
 const BookingModel = require("../models/booking.model");
+
 const createAvailability = async (userId, availabilityData) => {
   return await AvailabilityModel.findOneAndUpdate(
     { userId },
@@ -43,9 +44,18 @@ const getMentorAvailabilityForNext14Days = async (
       throw new ApiError(httpStatus.notFound, "Mentor availability not found.");
     }
 
-    const { weeklyAvailability, unavailableDates } = mentorAvailability;
+    const { weeklyAvailability, unavailableDates, specificAvailability } =
+      mentorAvailability;
+
     const unavailableDateSet = new Set(
       unavailableDates.map((date) => moment(date).format("YYYY-MM-DD"))
+    );
+
+    // NEW: map of "YYYY-MM-DD" -> slots[], for one-off date overrides.
+    // If a date is in here, it wins over the weekly recurring pattern -
+    // it does NOT repeat on other weeks.
+    const specificMap = new Map(
+      (specificAvailability || []).map((entry) => [entry.date, entry.slots])
     );
 
     // Function to break down time slots into smaller durations with full date-time
@@ -86,15 +96,22 @@ const getMentorAvailabilityForNext14Days = async (
     const next14DaysAvailability = [];
     for (let i = 0; i < 14; i++) {
       const currentDate = moment().add(i, "days").format("YYYY-MM-DD");
-      const dayOfWeek = moment(currentDate).format("dddd").toLowerCase();
 
       // Skip if the date is marked as unavailable
       if (unavailableDateSet.has(currentDate)) {
         continue;
       }
 
-      // Get the mentor's availability for that day of the week
-      const dailyAvailability = weeklyAvailability[dayOfWeek];
+      // NEW: a specific-date override always wins over the weekly pattern
+      // for that exact date - it will not show up on any other date.
+      let dailyAvailability;
+      if (specificMap.has(currentDate)) {
+        dailyAvailability = specificMap.get(currentDate);
+      } else {
+        const dayOfWeek = moment(currentDate).format("dddd").toLowerCase();
+        dailyAvailability = weeklyAvailability[dayOfWeek] || [];
+      }
+
       const slotsForDay = [];
 
       dailyAvailability.forEach((slot) => {

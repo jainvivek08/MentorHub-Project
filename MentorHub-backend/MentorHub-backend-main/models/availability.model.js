@@ -1,5 +1,10 @@
 const { Schema, model } = require("mongoose");
 
+const timeSlot = {
+  startTime: { type: String },
+  endTime: { type: String },
+};
+
 const availabilitySchema = new Schema(
   {
     userId: {
@@ -8,49 +13,23 @@ const availabilitySchema = new Schema(
       required: true,
     },
     weeklyAvailability: {
-      monday: [
-        {
-          startTime: { type: String },
-          endTime: { type: String },
-        },
-      ],
-      tuesday: [
-        {
-          startTime: { type: String },
-          endTime: { type: String },
-        },
-      ],
-      wednesday: [
-        {
-          startTime: { type: String },
-          endTime: { type: String },
-        },
-      ],
-      thursday: [
-        {
-          startTime: { type: String },
-          endTime: { type: String },
-        },
-      ],
-      friday: [
-        {
-          startTime: { type: String },
-          endTime: { type: String },
-        },
-      ],
-      saturday: [
-        {
-          startTime: { type: String },
-          endTime: { type: String },
-        },
-      ],
-      sunday: [
-        {
-          startTime: { type: String },
-          endTime: { type: String },
-        },
-      ],
+      monday: [timeSlot],
+      tuesday: [timeSlot],
+      wednesday: [timeSlot],
+      thursday: [timeSlot],
+      friday: [timeSlot],
+      saturday: [timeSlot],
+      sunday: [timeSlot],
     },
+    // NEW: one-off overrides for a single calendar date (format: "YYYY-MM-DD").
+    // If a date has an entry here, it takes priority over weeklyAvailability
+    // for that exact date only - it does NOT repeat on future weeks.
+    specificAvailability: [
+      {
+        date: { type: String, required: true }, // "YYYY-MM-DD"
+        slots: [timeSlot],
+      },
+    ],
     unavailableDates: [
       {
         type: Date,

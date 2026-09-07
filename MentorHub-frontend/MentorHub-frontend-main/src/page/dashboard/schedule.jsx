@@ -24,6 +24,9 @@ const Schedule = () => {
     friday: [],
     saturday: [],
   });
+  // NEW: one-off overrides for a single date, e.g.
+  // [{ date: "2026-09-08", slots: [...] }]
+  const [specificAvailability, setSpecificAvailability] = useState([]);
   const [unavailableDates, setUnavailableDates] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedSlots, setSelectedSlots] = useState([]);
@@ -37,6 +40,7 @@ const Schedule = () => {
         const data = res.data.availability;
         if (data) {
           setWeeklyAvailability(data.weeklyAvailability || {});
+          setSpecificAvailability(data.specificAvailability || []);
           setUnavailableDates(
             (data.unavailableDates || []).map((d) =>
               moment(d).format("YYYY-MM-DD")
@@ -50,6 +54,9 @@ const Schedule = () => {
     fetchAvailability();
   }, []);
 
+  const getSpecificEntry = (date) =>
+    specificAvailability.find((entry) => entry.date === date);
+
   const handleSelectDate = (date) => {
     const formattedDate = moment(date).format("YYYY-MM-DD");
 
@@ -59,8 +66,16 @@ const Schedule = () => {
 
     setSelectedDate(formattedDate);
 
-    const dayOfWeek = moment(formattedDate).format("dddd").toLowerCase();
-    const existingSlots = weeklyAvailability[dayOfWeek] || [];
+    // Preselect from a specific-date override if one exists for this exact
+    // date, otherwise fall back to showing that weekday's recurring pattern
+    // (just as a starting point - saving will still only affect this date).
+    const specificEntry = getSpecificEntry(formattedDate);
+    const existingSlots = specificEntry
+      ? specificEntry.slots
+      : weeklyAvailability[
+          moment(formattedDate).format("dddd").toLowerCase()
+        ] || [];
+
     const preselected = SLOT_OPTIONS.filter((opt) =>
       existingSlots.some(
         (slot) =>
@@ -76,19 +91,12 @@ const Schedule = () => {
     setSelectedSlots(value);
   };
 
-  const saveToBackend = async (updatedWeekly, updatedUnavailable) => {
+  const saveToBackend = async (updatedSpecific, updatedUnavailable) => {
     setLoading(true);
     try {
-      // 🔧 Fix: har din ke slots se _id (aur koi extra field) hatao
-      const cleanedWeekly = Object.fromEntries(
-        Object.entries(updatedWeekly).map(([day, slots]) => [
-          day,
-          slots.map(({ startTime, endTime }) => ({ startTime, endTime })),
-        ])
-      );
-
       await availabilityApi.saveAvailability({
-        weeklyAvailability: cleanedWeekly,
+        weeklyAvailability,
+        specificAvailability: updatedSpecific,
         unavailableDates: updatedUnavailable,
       });
       message.success("Availability saved successfully!");
@@ -99,42 +107,46 @@ const Schedule = () => {
       setLoading(false);
     }
   };
+
   const handleScheduleSave = async () => {
     if (!selectedDate) return;
 
-    const dayOfWeek = moment(selectedDate).format("dddd").toLowerCase();
     const newSlots = SLOT_OPTIONS.filter((opt) =>
       selectedSlots.includes(opt.label)
     ).map((opt) => ({ startTime: opt.startTime, endTime: opt.endTime }));
 
-    const updatedWeekly = {
-      ...weeklyAvailability,
-      [dayOfWeek]: newSlots,
-    };
+    // Replace this date's entry if it exists, otherwise add a new one.
+    // This ONLY affects `selectedDate` - it will not repeat on other weeks.
+    const updatedSpecific = [
+      ...specificAvailability.filter((entry) => entry.date !== selectedDate),
+      { date: selectedDate, slots: newSlots },
+    ];
 
     const updatedUnavailable = unavailableDates.filter(
       (d) => d !== selectedDate
     );
 
-    setWeeklyAvailability(updatedWeekly);
+    setSpecificAvailability(updatedSpecific);
     setUnavailableDates(updatedUnavailable);
     setShowModal(false);
     setSelectedSlots([]);
     setSelectedDate(null);
 
-    await saveToBackend(updatedWeekly, updatedUnavailable);
+    await saveToBackend(updatedSpecific, updatedUnavailable);
   };
 
   const handleMarkUnavailable = async () => {
     if (!selectedDate) return;
 
-    const updatedUnavailable = [...new Set([...unavailableDates, selectedDate])];
+    const updatedUnavailable = [
+      ...new Set([...unavailableDates, selectedDate]),
+    ];
     setUnavailableDates(updatedUnavailable);
     setShowModal(false);
     setSelectedSlots([]);
     setSelectedDate(null);
 
-    await saveToBackend(weeklyAvailability, updatedUnavailable);
+    await saveToBackend(specificAvailability, updatedUnavailable);
   };
 
   const dateCellRender = (value) => {
@@ -144,8 +156,13 @@ const Schedule = () => {
       return <div className="bg-red-500 text-white p-2 rounded">Unavailable</div>;
     }
 
+    // A specific-date override (if present) wins over the weekly pattern
+    // for display purposes too.
+    const specificEntry = getSpecificEntry(currentDate);
     const dayOfWeek = moment(currentDate).format("dddd").toLowerCase();
-    const slotsForDay = weeklyAvailability[dayOfWeek] || [];
+    const slotsForDay = specificEntry
+      ? specificEntry.slots
+      : weeklyAvailability[dayOfWeek] || [];
 
     if (slotsForDay.length) {
       return (
@@ -167,9 +184,9 @@ const Schedule = () => {
       <div className="p-4">
         <h2 className="text-2xl font-bold mb-4">Schedule Time Slots</h2>
         <p className="text-gray-500 mb-4">
-          Note: Setting slots for a date applies to every{" "}
-          {selectedDate ? moment(selectedDate).format("dddd") : "that weekday"}{" "}
-          (recurring weekly).
+          Note: Setting slots for a date now applies to{" "}
+          <span className="font-semibold">that exact date only</span> - it
+          will not repeat on other weeks.
         </p>
 
         <Calendar
@@ -180,7 +197,7 @@ const Schedule = () => {
 
         <Modal
           title={`Select Available Time Slots${
-            selectedDate ? ` (${moment(selectedDate).format("dddd")})` : ""
+            selectedDate ? ` (${moment(selectedDate).format("Do MMM YYYY")})` : ""
           }`}
           open={showModal}
           onCancel={() => setShowModal(false)}
