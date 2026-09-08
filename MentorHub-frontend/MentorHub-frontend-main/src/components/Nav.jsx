@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { FaUser, FaBars, FaTimes } from "react-icons/fa";
+import { FaUser, FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
 import { Dropdown, Menu } from "antd";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { FiLogOut } from "react-icons/fi";
@@ -41,6 +41,11 @@ export const Nav = () => {
 
   const menu = (
     <Menu>
+      <Menu.Item key="0" icon={<FaUserCircle />}>
+        <NavLink className="text-base" to="/dashboard/profile">
+          Profile
+        </NavLink>
+      </Menu.Item>
       <Menu.Item key="1" icon={<AiOutlineDashboard />}>
         <NavLink className="text-base" to="/dashboard/overview">
           Dashboard
@@ -154,6 +159,15 @@ export const Nav = () => {
               </ul>
             ) : (
               <ul className="flex flex-col gap-1">
+                <li>
+                  <NavLink
+                    to="/dashboard/profile"
+                    onClick={closeMobileMenu}
+                    className="flex items-center gap-3 px-2 py-3 font-medium tracking-wide text-gray-100 hover:text-[#00DFBD]"
+                  >
+                    <FaUserCircle /> Profile
+                  </NavLink>
+                </li>
                 <li>
                   <NavLink
                     to="/dashboard/overview"
