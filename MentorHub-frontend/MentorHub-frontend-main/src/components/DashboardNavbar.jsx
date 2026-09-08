@@ -4,6 +4,7 @@ import { removeToken } from "../helper";
 import useUserStore from "../store/user";
 import { FiLogOut } from "react-icons/fi";
 import NotificationBell from "./NotificationBell";
+import logo from "../assets/logo-black-cropped.png";
 
 const DashboardNavbar = () => {
   const navigate = useNavigate();
@@ -27,9 +28,11 @@ const DashboardNavbar = () => {
             <div>
               <div className="p-2">
                 <NavLink to="/">
-                  <p className="px-4 py-1 text-3xl font-bold tracking-wider text-gray-800 cursor-pointer">
-                    MentorHub
-                  </p>
+                  <img
+                    className="w-40 cursor-pointer"
+                    src={logo}
+                    alt="MentorHub logo"
+                  />
                 </NavLink>
               </div>
             </div>
