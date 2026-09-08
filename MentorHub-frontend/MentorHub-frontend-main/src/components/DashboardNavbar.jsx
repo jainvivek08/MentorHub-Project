@@ -2,11 +2,11 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { removeToken } from "../helper";
 import useUserStore from "../store/user";
-import { FiLogOut } from "react-icons/fi";
+import { FiLogOut, FiMenu } from "react-icons/fi";
 import NotificationBell from "./NotificationBell";
-import logo from "../assets/logo-black-cropped.png";
+import logo from "../assets/logo-no-background.png";
 
-const DashboardNavbar = () => {
+const DashboardNavbar = ({ onMenuClick = () => {} }) => {
   const navigate = useNavigate();
   const { user, setUser } = useUserStore();
 
@@ -22,14 +22,21 @@ const DashboardNavbar = () => {
 
   return (
     <div>
-      <div className="border-b bg-gray-50">
+      <div className="border-b border-gray-800 bg-black">
         <div className="container py-2 mx-auto">
           <div className="flex items-center justify-between ">
-            <div>
-              <div className="py-1">
+            <div className="flex items-center">
+              <button
+                onClick={onMenuClick}
+                className="p-2 mr-1 text-white rounded-lg md:hidden hover:bg-gray-800"
+                aria-label="Open menu"
+              >
+                <FiMenu className="text-2xl" />
+              </button>
+              <div className="py-1 pl-4">
                 <NavLink to="/">
                   <img
-                    className="w-64 cursor-pointer"
+                    className="w-40 cursor-pointer"
                     src={logo}
                     alt="MentorHub logo"
                   />
@@ -40,7 +47,7 @@ const DashboardNavbar = () => {
               <NotificationBell />
               <button
                 onClick={onButtonClick}
-                className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 transition-colors duration-300 transform border border-red-200 rounded-lg hover:bg-red-200 hover:text-gray-700 "
+                className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-200 transition-colors duration-300 transform border border-gray-700 rounded-lg hover:bg-red-900/40 hover:text-white "
               >
                 <span className="font-medium">Log Out</span>
                 <FiLogOut className="text-base text-red-500" />
