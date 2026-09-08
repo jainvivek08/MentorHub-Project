@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import useUserStore from "../store/user";
+import logo from "../assets/logo-black-cropped.png";
 
 const navItemClass = ({ isActive }) =>
   `flex items-center px-4 py-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-800 dark:hover:text-white ${
@@ -17,9 +18,7 @@ const Sidebar = () => {
   return (
     <aside className="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-white border-r dark:bg-gray-900 dark:border-gray-700">
       <div className="px-2 mb-4">
-        <h1 className="text-2xl font-bold tracking-wide text-gray-800 dark:text-white">
-          MentorHub
-        </h1>
+        <img className="w-40" src={logo} alt="MentorHub logo" />
       </div>
 
       <div className="flex flex-col justify-between flex-1 mt-4">
