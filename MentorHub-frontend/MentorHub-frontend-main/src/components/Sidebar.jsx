@@ -3,26 +3,39 @@ import { NavLink } from "react-router-dom";
 import useUserStore from "../store/user";
 
 const navItemClass = ({ isActive }) =>
-  `flex items-center px-4 py-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-800 dark:hover:text-white ${
+  `flex items-center px-4 py-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-800 hover:text-white ${
     isActive
-      ? "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-white"
-      : "text-gray-600 dark:text-gray-300"
+      ? "bg-gray-800 text-white"
+      : "text-gray-300"
   }`;
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen = false, onClose = () => {} }) => {
   const { user } = useUserStore();
   const isMentor = user?.role === "mentor";
   const isAdmin = user?.role === "admin";
 
   return (
-    <aside className="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-white border-r dark:bg-gray-900 dark:border-gray-700">
-      <div className="px-2 pb-4 mb-4 border-b border-gray-200 dark:border-gray-700">
-        <h1 className="text-2xl font-bold tracking-wide text-gray-800 dark:text-white">
+    <>
+      {/* Overlay - mobile only, shown when sidebar is open */}
+      {isOpen && (
+        <div
+          onClick={onClose}
+          className="fixed inset-0 z-30 bg-black/50 md:hidden"
+        />
+      )}
+
+      <aside
+        className={`fixed inset-y-0 left-0 z-40 flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-black border-r border-gray-800 transform transition-transform duration-300 md:static md:translate-x-0 ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+      <div className="px-2 pb-4 mb-4 border-b border-gray-800">
+        <h1 className="text-2xl font-bold tracking-wide text-white">
           MentorHub
         </h1>
       </div>
 
-      <div className="flex flex-col justify-between flex-1 mt-4">
+      <div className="flex flex-col justify-between flex-1 mt-4" onClick={onClose}>
         <nav className="space-y-2">
           <NavLink to="/dashboard/overview" className={navItemClass}>
             <svg
@@ -265,7 +278,8 @@ const Sidebar = () => {
           </NavLink>
         </nav>
       </div>
-    </aside>
+      </aside>
+    </>
   );
 };
 
