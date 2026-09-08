@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "../../components/Sidebar";
 import DashboardNavbar from "../../components/DashboardNavbar";
 
 const Dashboard = ({ children }) => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   return (
     <div>
-      <DashboardNavbar />
+      <DashboardNavbar onMenuClick={() => setSidebarOpen(true)} />
       <div className="flex">
         {/* Sidebar */}
-        <Sidebar />
+        <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
         {/* Main Content Area */}
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 w-full min-w-0">{children}</main>
       </div>
     </div>
   );
