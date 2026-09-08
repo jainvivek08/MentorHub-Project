@@ -26,10 +26,10 @@ const DashboardNavbar = () => {
         <div className="container py-2 mx-auto">
           <div className="flex items-center justify-between ">
             <div>
-              <div className="p-2">
+              <div className="py-1">
                 <NavLink to="/">
                   <img
-                    className="w-40 cursor-pointer"
+                    className="w-64 cursor-pointer"
                     src={logo}
                     alt="MentorHub logo"
                   />
